@@ -1,0 +1,88 @@
+page-chat-box {
+    ion-navbar img{width:40px;height:40px;}
+    .hideHeader{z-index:-1;}
+    .hd-mid{width:100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+    ion-title .toolbar-title-md{font-size:16px;font-weight:400;}
+    .udwrp{width:calc(100% - 50px)}
+    ion-title{max-width:calc(100% - 50px)}
+    ion-title,ion-avatar,.mre,.udwrp{display:inline-block;vertical-align:middle;}
+    ion-avatar,.mre{width:50px;}
+    .mre{
+        font-size: 25px; 
+        padding-left: 19px;
+        a{ color: #fff; }
+    }
+    
+    .chrwrp{
+        .fl{float:left}
+        .fr{float:right}
+        .clr{content:"";display:block;clear:both;}
+        /*padding:68px 0 0;*/
+        .timestamp{
+            width:100%;text-align:center;color:#ccc;background: #f1bc9936;
+            padding:15px 0 0;
+            p{margin:0;}
+        }
+        ul{
+            margin:0;padding:0;
+        }
+        .chtlst{
+            background: #f1bc9936;
+            min-height: 100vh;
+            padding:30px 25px 125px;  
+            overflow-y: auto;
+           
+
+        }
+        .fu,.fd{
+            position: relative;
+            background: #f1bd99;
+            border-radius: .4em;    
+            padding:10px;width:75%;
+            margin:0 0 10px;
+        }
+        .fu::after,.fd::after{
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 25px solid transparent;
+            border-right-color: #f1bd99;
+            border-left: 0;
+            border-top: 0;
+            margin-top: -10px;
+            margin-left: -17px;
+        }
+        .fd::after{
+            margin-left: 98%;
+            transform:rotate(-90deg);
+        }  
+    }
+}
+.msgbox{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-image: linear-gradient(130deg, #0b3954 13%, #3587a4 70%);
+    padding:5px 0 10px;
+    z-index:1;
+    ion-item,button{background:transparent}
+    ion-item{
+        width: 80%;
+        display: inline-block;
+        ion-label{color:#fff!important;}
+        ion-input{color:#fff;}
+    }
+    .item-md.item-block .item-inner,
+    .item-ios.item-block .item-inner{border-color:#fff!important;}
+    button{
+        width: 17px;
+        display: inline-block;
+        vertical-align: bottom;
+        ion-icon{
+            font-size:30px;
+        }
+    }
+}

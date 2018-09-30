@@ -1,0 +1,410 @@
+<ion-header id="pghd">
+    <ion-navbar>
+        <div class="hd-mid">
+            <div class="udwrp">
+                <ion-title>{{lguser}}</ion-title>
+                <ion-avatar class="round-image">
+
+                    <img class="round-image" width="50" height="50" src="{{lupic}}" alt="user icon">
+                </ion-avatar>
+
+            </div>
+            <div class="mre">
+                <a (click)="isMoreOpened()" href="javascript:void(0);">
+                    <ion-icon ios="ios-more" md="md-more"></ion-icon>
+                </a>
+            </div>
+        </div>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content class="outer-content">
+
+
+    <ion-list class="chat-sliding-demo">
+        <!-- <ion-list-header>
+      Chats
+    </ion-list-header> -->
+        <div *ngFor="let uls of userchats">
+            <ion-item-sliding *ngIf="uls.sender!=lgid" (click)="isChatEnabled(uls.sender)" class="chtlist" #item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img class="userimg" src="http://www.sarvaamexporters.com/{{uls.pro_path}}">
+                        <img class="sts" src="assets/imgs/icons/success.svg" alt="Offline" />
+                    </ion-avatar>
+                    <h2>{{uls.uname}}</h2>
+                    <p class="stutxt">{{uls.status}}</p>
+                    <p>{{uls.message}}</p>
+                    <ion-note item-end>
+                        <span classs="time">11.30 am</span>
+                    </ion-note>
+                </ion-item>
+            </ion-item-sliding>
+
+
+            <ion-item-sliding *ngIf="uls.receiver!=lgid" (click)="isChatEnabled(uls.receiver)" class="chtlist" #item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img class="userimg" src="http://www.sarvaamexporters.com/{{uls.pro_path}}">
+                        <img class="sts" src="assets/imgs/icons/success.svg" alt="Offline" />
+                    </ion-avatar>
+                    <h2>{{uls.uname}}</h2>
+                    <p class="stutxt">{{uls.status}}</p>
+                    <p>{{uls.message}}</p>
+                    <ion-note item-end>
+                        <span classs="time">11.30 am</span>
+                    </ion-note>
+                </ion-item>
+            </ion-item-sliding>
+        </div>
+
+
+    </ion-list>
+
+    <!-- this fab is placed at bottom right -->
+    <ion-fab bottom right>
+        <button ion-fab>
+            <ion-icon name="add"></ion-icon>
+        </button>
+        <ion-fab-list side="top">
+            <button ion-fab>
+                <ion-icon name="chatbubbles"></ion-icon>
+            </button>
+            <button (click)='enableSearchFun()' ion-fab>
+                <ion-icon ios="ios-contacts" md="md-contacts"></ion-icon>
+            </button>
+            <!-- <button ion-fab>Youtube</button> -->
+        </ion-fab-list>
+        <!-- <ion-fab-list side="left">
+     <button ion-fab>Vimeo</button>
+   </ion-fab-list> -->
+    </ion-fab>
+
+</ion-content>
+
+<div [ngClass]="{'open': isSearchVisible }" id="frreq" class="frreq ">
+    <span (click)='closeSearchFun()' class="clshlg">
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+    </span>
+    <form class="cmpg frstch">
+        <!-- <mat-form-field>
+            <input (keyup)="isFoundFriend()" #searchfr="ngModel" matInput placeholder="User id / Email id / User name" [(ngModel)]='srfr'
+                name="srfr">
+        </mat-form-field> -->
+        <ion-list>
+
+            <ion-item>
+                <ion-label floating>User id / Email id / User name</ion-label>
+                <ion-input type="text" (keyup)="isFoundFriend()" #searchfr="ngModel" [(ngModel)]='srfr' name="srfr"></ion-input>
+            </ion-item>
+        </ion-list>
+
+    </form>
+    <div class="srcht clr">
+        <ul class="filter">
+            <li class="sritme" *ngFor="let slst of srfrlst">
+                <!-- <h2>Find you friend here.</h2> -->
+                <div class="srin clr">
+                    <div class=" suicn">
+                        <img src="http://www.sarvaamexporters.com/{{slst.pro_path}}" alt="un">
+                    </div>
+                    <div class="fr sudet">
+                        <p>{{slst.email}}</p>
+                        <p>{{slst.uid}}</p>
+                        <p>{{slst.uname}}</p>
+                    </div>
+                    <div class="frbn">
+                        <button ion-button full class="cmpg" (click)="isResetDone()">Sent Request</button>
+                        <!-- <mat-chip-list class="mat-chip-list-stacked clr">
+                            <mat-chip class="cmpg" (click)="isResetDone()" selected="true">
+                                Sent Request
+                            </mat-chip>
+                        </mat-chip-list> -->
+                        <!-- <mat-chip-list class="mat-chip-list-stacked">
+                    <mat-chip   (click)="isResetDone()" selected="true">
+                      Cancel
+                    </mat-chip>
+                  </mat-chip-list> -->
+                    </div>
+                </div>
+
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+
+<!-- User profile update here-->
+<div [ngClass]="{'open': isUserProvileEnabled }" class="frreq usrpro">
+    <div class="usbnr">
+        <div class="cvr" [ngStyle]="{'background-image': 'url(' + ucover_path + ')'}">
+            <div (click)='closeUProfile()' class="hdr">
+                <img src="assets/imgs/icons/back.svg" alt="Back">
+
+            </div>
+            <div class="upr">
+                <div class="inupr">
+                    <img src="{{upro_path}}" alt="userprofile" />
+                    <input #uproupload type="file" (click)="uproupload.value = null" (change)="userProfileChange($event,'profile')"
+                        style="display:none" accept="image/*">
+                    <a (click)="uproupload.click()" class="uppr" href="javascript:void(0);">
+                        Edit
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+
+
+                </div>
+                <h3>{{lguser}}</h3>
+                <p>{{uloc}}</p>
+            </div>
+            <div class="edico">
+                <!-- <input class="id="cin" name="cin" type="file" placeholder="Upload a file..." multiple/> -->
+                <input #ucvrupload type="file" (click)="ucvrupload.value = null" (change)="userProfileChange($event,'cover')"
+                    style="display:none" accept="image/*">
+                <a (click)="ucvrupload.click()" class="uppr" href="javascript:void(0);">
+                    Edit
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+            </div>
+        </div>
+        <ion-segment>
+            <ion-segment-button (click)='enalbeProSett()' value="Profile">
+                Profile
+            </ion-segment-button>
+            <ion-segment-button (click)='enalbeFrsSett()' value="Friends">
+                Friends
+            </ion-segment-button>
+            <ion-segment-button (click)='enalbeFrPenSett()' value="Friend Request">
+                Friend Request
+            </ion-segment-button>
+        </ion-segment>
+
+
+        <!-- Profile setting update-->
+        <div [ngClass]="{'show': isProSett }" id="prosec" class="pro_sc ">
+            <form>
+                <!-- <mat-form-field>
+                  <input #ngui="ngModel" matInput placeholder="Unique id" [(ngModel)]='lgid' name="lgid" [readonly]="true">
+              </mat-form-field> -->
+                <ion-list>
+
+                    <ion-item>
+                        <ion-label floating>Unique id</ion-label>
+                        <ion-input #ngui="ngModel" type="text" [(ngModel)]='lgid' name="lgid" [readonly]="true"></ion-input>
+                    </ion-item>
+                </ion-list>
+
+                <div class="stfld">
+                    <!-- <mat-form-field>
+                      <input id='flrm' #fn="ngModel" matInput placeholder="Full Name" [(ngModel)]='lguser' name="lguser" required readonly>
+                  </mat-form-field> -->
+                    <ion-list>
+
+                        <ion-item>
+                            <ion-label floating>Full Name</ion-label>
+                            <ion-input type="text" id='flrm' #fn="ngModel" [(ngModel)]='lguser' name="lguser" required
+                                readonly></ion-input>
+                        </ion-item>
+                    </ion-list>
+                    <span (click)="addrmclass('sda','eda','flrm','yes')" id="eda" class="upda show">
+                        <ion-icon ios="ios-create" md="md-create"></ion-icon>
+                    </span>
+                    <span id="sda" class="upda ">
+                        <ion-icon (click)="CancelUpdateDataOfUser('uname','eda','sda','flrm','no')" ios="ios-close" md="md-close"></ion-icon>
+                        <ion-icon (click)="updateDataOfUser('uname','eda','sda','flrm','no')" ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                        <!-- <i (click)="CancelUpdateDataOfUser('uname','eda','sda','flrm','no')" class="fas fa-times"></i>
+                      <i (click)="updateDataOfUser('uname','eda','sda','flrm','no')" class="fas fa-check"></i> -->
+                    </span>
+
+                </div>
+                <div class="stfld">
+                    <!-- <mat-form-field>
+                      <input id="emrm" #emai="ngModel" matInput placeholder="Email id" [(ngModel)]='uemail' name="uemail" required readonly>
+                  </mat-form-field> -->
+
+                    <ion-item>
+                        <ion-label floating>Email id</ion-label>
+                        <ion-input id="emrm" #emai="ngModel" [(ngModel)]='uemail' name="uemail" required readonly></ion-input>
+                    </ion-item>
+                    <span (click)="addrmclass('sda1','eda1','emrm','yes')" id="eda1" class="upda show">
+                        <ion-icon ios="ios-create" md="md-create"></ion-icon>
+                    </span>
+                    <span id="sda1" class="upda ">
+                        <ion-icon (click)="CancelUpdateDataOfUser('email','eda1','sda1','emrm','no')" ios="ios-close"
+                            md="md-close"></ion-icon>
+                        <ion-icon (click)="updateDataOfUser('email','eda1','sda1','emrm','no')" ios="ios-checkmark" md="md-checkmark"></ion-icon>
+
+                    </span>
+
+                </div>
+                <div class="stfld">
+                    <!-- <mat-form-field>
+                      <input id="morm" #mobn="ngModel" matInput placeholder="Mobile Nmber" [(ngModel)]='phn' name="phn" required readonly>
+                  </mat-form-field> -->
+                    <ion-item>
+                        <ion-label floating>Mobile Nmber</ion-label>
+                        <ion-input id="morm" #mobn="ngModel" [(ngModel)]='phn' name="phn" required readonly></ion-input>
+                    </ion-item>
+                    <span (click)="addrmclass('sda2','eda2','morm','yes')" id="eda2" class="upda show">
+                        <ion-icon ios="ios-create" md="md-create"></ion-icon>
+                    </span>
+                    <span id="sda2" class="upda ">
+                        <ion-icon (click)="CancelUpdateDataOfUser('phone','eda2','sda2','morm','no')" ios="ios-close"
+                            md="md-close"></ion-icon>
+                        <ion-icon (click)="updateDataOfUser('phone','eda2','sda2','morm','no')" ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                    </span>
+
+                </div>
+                <div class="stfld">
+                    <!-- <mat-form-field class="example-full-width">
+                      <textarea id="adrm" matInput placeholder="Status" [(ngModel)]='status' name="status" readonly></textarea>
+                  </mat-form-field> -->
+                    <ion-item>
+                        <ion-label floating>Status</ion-label>
+                        <ion-input id="adrm" [(ngModel)]='status' name="status" readonly></ion-input>
+                    </ion-item>
+
+                    <span (click)="addrmclass('sda3','eda3','adrm','yes')" id="eda3" class="upda show">
+                        <ion-icon ios="ios-create" md="md-create"></ion-icon>
+                    </span>
+                    <span id="sda3" class="upda ">
+                        <ion-icon (click)="CancelUpdateDataOfUser('status','eda3','sda3','adrm','no')" ios="ios-close"
+                            md="md-close"></ion-icon>
+                        <ion-icon (click)="updateDataOfUser('status','eda3','sda3','adrm','no')" ios="ios-checkmark" md="md-checkmark"></ion-icon>
+                    </span>
+
+                </div>
+                <div class="stfld">
+                    <!-- <mat-form-field>
+                      <input id="lorm" #ngloc="ngModel" matInput placeholder="Location" [(ngModel)]='uloc' name="uloc" required readonly>
+                  </mat-form-field> -->
+                    <ion-item>
+                        <ion-label floating>Location</ion-label>
+                        <ion-input id="lorm" #ngloc="ngModel" [(ngModel)]='uloc' name="uloc" required readonly></ion-input>
+                    </ion-item>
+
+                    <span (click)="addrmclass('sda4','eda4','lorm','yes')" id="eda4" class="upda show">
+                        <ion-icon ios="ios-create" md="md-create"></ion-icon>
+                    </span>
+                    <span id="sda4" class="upda ">
+                        <ion-icon (click)="CancelUpdateDataOfUser('location','eda4','sda4','lorm','no')" ios="ios-close"
+                            md="md-close"></ion-icon>
+                        <ion-icon (click)="updateDataOfUser('location','eda4','sda4','lorm','no')" ios="ios-checkmark"
+                            md="md-checkmark"></ion-icon>
+                    </span>
+
+                </div>
+
+
+            </form>
+        </div>
+        <!-- Profile setting update-->
+        <!-- User Friend list setting update-->
+
+        <div [ngClass]="{'show': isProFfSett }" id="frlst" class="pro_sc frl ">
+            <!-- <ul>
+
+            <li class="frech " *ngFor="let ufrl of usfrlt">
+                <div class="lssec clr" *ngIf="ufrl.isconfirmed=='Yes'">
+                    <div class="frdp fl">
+                        <img src="http://www.sarvaamexporters.com/{{ufrl.pro_path}}" alt="un">
+                    </div>
+                    <div class="frinf fr">
+                        <p>{{ufrl.uname}}</p>
+                        <p>{{ufrl.location}}</p>
+                    </div>
+
+                </div>
+
+            </li>
+        </ul> -->
+            <div *ngFor="let ufrl of usfrlt">
+                <ion-item-sliding *ngIf="ufrl.isconfirmed=='Yes'" (click)="isChatEnabled(uls.sender)" class="chtlist"
+                    #item>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <img src="http://www.sarvaamexporters.com/{{ufrl.pro_path}}" alt="un">
+                        </ion-avatar>
+                        <h2>{{ufrl.uname}}</h2>
+                        <p>{{ufrl.location}}</p>
+                        <!-- <ion-note item-end>
+               <span classs="time" >11.30 am</span>
+              </ion-note> -->
+                    </ion-item>
+                </ion-item-sliding>
+
+            </div>
+        </div>
+        <!-- User Friend list -->
+        <!-- User Friend Request details -->
+        <div [ngClass]="{'show': isProFfPenSett }" id="frpng" class="pro_sc frl show">
+            <!-- <ul>
+
+            <li class="frech " *ngFor="let ufrl of usfrlt">
+                <div class="lssec clr" *ngIf="ufrl.isconfirmed!='Yes'">
+                    <div class="frdp fl">
+                        <img src="http://www.sarvaamexporters.com/{{ufrl.pro_path}}" alt="un">
+                    </div>
+                    <div class="frinf fr">
+                        <p>{{ufrl.uname}}</p>
+                        <p>{{ufrl.location}}</p>
+                    </div>
+                    <div class="frbn">
+                        <mat-chip-list class="mat-chip-list-stacked clr">
+                            <mat-chip class="cmpg" (click)="isFriendRequestAccepted(ufrl.uid,'yes')" selected="true">
+                                Confirm
+                            </mat-chip>
+                        </mat-chip-list>
+                        <mat-chip-list class="mat-chip-list-stacked">
+                            <mat-chip class="cmpg" (click)="isFriendRequestAccepted(ufrl.uid,'no')" selected="true">
+                                Reject
+                            </mat-chip>
+                        </mat-chip-list>
+                    </div>
+
+                </div>
+
+            </li>
+        </ul> -->
+            <div *ngFor="let ufrl of usfrlt">
+                <ion-item-sliding *ngIf="ufrl.isconfirmed!='Yes'" class="frpedlst" #item>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <img src="http://www.sarvaamexporters.com/{{ufrl.pro_path}}" alt="un">
+                        </ion-avatar>
+                        <h2>{{ufrl.uname}}</h2>
+                        <p>{{ufrl.location}}</p>
+                        <ion-note item-end>
+
+                        </ion-note>
+                        <div class="btnwrp">
+                            <button (click)="isFriendRequestAccepted(ufrl.uid,'yes')">Confirm</button>
+                            <button (click)="isFriendRequestAccepted(ufrl.uid,'no')">Reject</button>
+                        </div>
+
+                    </ion-item>
+
+                </ion-item-sliding>
+
+            </div>
+        </div>
+        <!-- User Friend Request details -->
+
+    </div>
+</div>
+<!-- User profile update end here-->
+
+<div [ngClass]="{'open': isMoreOpen }" class="mremnu">
+    <ul>
+        <li>
+            <a (click)="enableUProfile();isMoreClosed()" href="javascript:void(0)">My Profile</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Logout</a>
+        </li>
+    </ul>
+</div>
