@@ -1,38 +1,32 @@
 <ion-content class="cmpg hmpg">
-
-  <div class="logsec">
-      <img src="../assets/imgs/icons/logo.png"/>
-  </div>
-  <form validate #loginForm="ngForm" class="logfld">
-  <ion-list>
-
-    <ion-item>
-      <ion-label floating>User id / Email</ion-label>
-      <ion-input #chatid="ngModel" type="text" [(ngModel)]='uid' name="uid" required></ion-input>
-    </ion-item>
-<div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
-    <p class="ermsg"  [hidden]="!chatid.errors.required">
-      Let me know your Chat ID please
-    </p>
-    
-  </div> 
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input  #lpwd="ngModel" type="password" [(ngModel)]='upswd' name="upswd" required></ion-input>
-    </ion-item>
-    <div *ngIf="lpwd.errors && (lpwd.dirty || lpwd.touched)" class="alert alert-danger">
-    <p class="ermsg mrdow" [hidden]="!lpwd.errors.required">
-     Enter your correct Password!..
-    </p>
-    
-  </div> 
-    </ion-list>
-
-    <a  (click)="isLoggedIn()" class="subbtn" >
- <button ion-button full>Submit</button>
-  </a>
-    <a (click)="nextPage('fp')">Forgot password?</a>
-  <a (click)="nextPage('rp')">Create a new account</a>
-</form>
- 
+    <div class="logsec">
+        <img src="../assets/imgs/icons/logo.png"/>
+    </div>
+    <form validate #loginForm="ngForm" class="logfld">
+        <ion-list>
+            <ion-item>
+                <ion-label floating>User id / Email</ion-label>
+                <ion-input #chatid="ngModel" type="text" [(ngModel)]='uid' name="uid" required></ion-input>
+            </ion-item>
+            <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
+                <p class="ermsg"  [hidden]="!chatid.errors.required">
+                    Let me know your Chat ID please
+                </p>
+            </div>
+            <ion-item>
+                <ion-label floating>Password</ion-label>
+                <ion-input  #lpwd="ngModel" type="password" [(ngModel)]='upswd' name="upswd" required></ion-input>
+            </ion-item>
+            <div *ngIf="lpwd.errors && (lpwd.dirty || lpwd.touched)" class="alert alert-danger">
+                <p class="ermsg mrdow" [hidden]="!lpwd.errors.required">
+                    Enter your correct Password!..
+                </p>
+            </div>
+        </ion-list>
+        <a     class="subbtn" >
+        <button (click)="isLoggedIn()" [ngClass]="{'disables': loginForm.form.invalid,'enabled' : loginForm.form.valid }" ion-button full>Submit</button>
+        </a>
+        <a (click)="nextPage('fp')">Forgot password?</a>
+        <a (click)="nextPage('rp')">Create a new account</a>
+    </form>
 </ion-content>
