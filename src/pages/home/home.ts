@@ -48,11 +48,11 @@ export class HomePage implements OnInit {
             this.navCtrl.push(DashPage);
             //this.push.navigate(['/dash']);
           } else {
-              this.appService.presentToast("Please give me a Valid input");
+              this.appService.presentToast("Please give me a Valid input",'bottom');
           }
         }
         if(this.ulst.length==0){
-          this.appService.presentToast("Please give me a Valid input");
+          this.appService.presentToast("Please give me a Valid input",'bottom');
         }
       },
       err => console.log(err),

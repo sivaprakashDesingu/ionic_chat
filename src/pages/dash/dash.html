@@ -76,11 +76,9 @@
             <button (click)='enableSearchFun()' ion-fab>
                 <ion-icon ios="ios-contacts" md="md-contacts"></ion-icon>
             </button>
-            <!-- <button ion-fab>Youtube</button> -->
+            
         </ion-fab-list>
-        <!-- <ion-fab-list side="left">
-     <button ion-fab>Vimeo</button>
-   </ion-fab-list> -->
+       
     </ion-fab>
 
 </ion-content>
@@ -90,10 +88,7 @@
         <ion-icon ios="ios-close" md="md-close"></ion-icon>
     </span>
     <form class="cmpg frstch">
-        <!-- <mat-form-field>
-            <input (keyup)="isFoundFriend()" #searchfr="ngModel" matInput placeholder="User id / Email id / User name" [(ngModel)]='srfr'
-                name="srfr">
-        </mat-form-field> -->
+       
         <ion-list>
 
             <ion-item>
@@ -185,14 +180,14 @@
 
 
         <!-- Profile setting update-->
-        <div [ngClass]="{'show': isProSett }" id="prosec" class="pro_sc ">
+        <div [ngClass]="{'show': isProSett }" id="prosec " class="pro_sc mkch">
             <form>
                 <!-- <mat-form-field>
                   <input #ngui="ngModel" matInput placeholder="Unique id" [(ngModel)]='lgid' name="lgid" [readonly]="true">
               </mat-form-field> -->
                 <ion-list>
 
-                    <ion-item>
+                    <ion-item data-overlay="on">
                         <ion-label floating>Unique id</ion-label>
                         <ion-input #ngui="ngModel" type="text" [(ngModel)]='lgid' name="lgid" [readonly]="true"></ion-input>
                     </ion-item>
@@ -204,10 +199,9 @@
                   </mat-form-field> -->
                     <ion-list>
 
-                        <ion-item>
+                        <ion-item id='flrm' data-overlay="on">
                             <ion-label floating>Full Name</ion-label>
-                            <ion-input type="text" id='flrm' #fn="ngModel" [(ngModel)]='lguser' name="lguser" required
-                                readonly></ion-input>
+                            <ion-input type="text"  #fn="ngModel" [(ngModel)]='lguser' name="lguser" required></ion-input>
                         </ion-item>
                     </ion-list>
                     <span (click)="addrmclass('sda','eda','flrm','yes')" id="eda" class="upda show">
@@ -221,14 +215,14 @@
                     </span>
 
                 </div>
-                <div class="stfld">
+                <div class="stfld" >
                     <!-- <mat-form-field>
                       <input id="emrm" #emai="ngModel" matInput placeholder="Email id" [(ngModel)]='uemail' name="uemail" required readonly>
                   </mat-form-field> -->
 
-                    <ion-item>
+                    <ion-item id="emrm" data-overlay="on">
                         <ion-label floating>Email id</ion-label>
-                        <ion-input id="emrm" #emai="ngModel" [(ngModel)]='uemail' name="uemail" required readonly></ion-input>
+                        <ion-input  #emai="ngModel" [(ngModel)]='uemail' name="uemail" required></ion-input>
                     </ion-item>
                     <span (click)="addrmclass('sda1','eda1','emrm','yes')" id="eda1" class="upda show">
                         <ion-icon ios="ios-create" md="md-create"></ion-icon>
@@ -242,12 +236,10 @@
 
                 </div>
                 <div class="stfld">
-                    <!-- <mat-form-field>
-                      <input id="morm" #mobn="ngModel" matInput placeholder="Mobile Nmber" [(ngModel)]='phn' name="phn" required readonly>
-                  </mat-form-field> -->
-                    <ion-item>
+                    
+                    <ion-item id="morm" data-overlay="on">
                         <ion-label floating>Mobile Nmber</ion-label>
-                        <ion-input id="morm" #mobn="ngModel" [(ngModel)]='phn' name="phn" required readonly></ion-input>
+                        <ion-input  #mobn="ngModel" [(ngModel)]='phn' name="phn" required></ion-input>
                     </ion-item>
                     <span (click)="addrmclass('sda2','eda2','morm','yes')" id="eda2" class="upda show">
                         <ion-icon ios="ios-create" md="md-create"></ion-icon>
@@ -260,12 +252,10 @@
 
                 </div>
                 <div class="stfld">
-                    <!-- <mat-form-field class="example-full-width">
-                      <textarea id="adrm" matInput placeholder="Status" [(ngModel)]='status' name="status" readonly></textarea>
-                  </mat-form-field> -->
-                    <ion-item>
+                    
+                    <ion-item id="adrm" data-overlay="on">
                         <ion-label floating>Status</ion-label>
-                        <ion-input id="adrm" [(ngModel)]='status' name="status" readonly></ion-input>
+                        <ion-input  [(ngModel)]='status' name="status" ></ion-input>
                     </ion-item>
 
                     <span (click)="addrmclass('sda3','eda3','adrm','yes')" id="eda3" class="upda show">
@@ -279,12 +269,10 @@
 
                 </div>
                 <div class="stfld">
-                    <!-- <mat-form-field>
-                      <input id="lorm" #ngloc="ngModel" matInput placeholder="Location" [(ngModel)]='uloc' name="uloc" required readonly>
-                  </mat-form-field> -->
-                    <ion-item>
+                    
+                    <ion-item id="lorm" data-overlay="on">
                         <ion-label floating>Location</ion-label>
-                        <ion-input id="lorm" #ngloc="ngModel" [(ngModel)]='uloc' name="uloc" required readonly></ion-input>
+                        <ion-input  #ngloc="ngModel" [(ngModel)]='uloc' name="uloc" required ></ion-input>
                     </ion-item>
 
                     <span (click)="addrmclass('sda4','eda4','lorm','yes')" id="eda4" class="upda show">
@@ -306,34 +294,16 @@
         <!-- User Friend list setting update-->
 
         <div [ngClass]="{'show': isProFfSett }" id="frlst" class="pro_sc frl ">
-            <!-- <ul>
-
-            <li class="frech " *ngFor="let ufrl of usfrlt">
-                <div class="lssec clr" *ngIf="ufrl.isconfirmed=='Yes'">
-                    <div class="frdp fl">
-                        <img src="http://www.sarvaamexporters.com/{{ufrl.pro_path}}" alt="un">
-                    </div>
-                    <div class="frinf fr">
-                        <p>{{ufrl.uname}}</p>
-                        <p>{{ufrl.location}}</p>
-                    </div>
-
-                </div>
-
-            </li>
-        </ul> -->
+            
             <div *ngFor="let ufrl of usfrlt">
-                <ion-item-sliding *ngIf="ufrl.isconfirmed=='Yes'" (click)="isChatEnabled(uls.sender)" class="chtlist"
-                    #item>
+                <ion-item-sliding *ngIf="ufrl.isconfirmed=='Yes'" (click)="isChatEnabled(ufrl.uid)" class="chtlist" #item>
                     <ion-item>
                         <ion-avatar item-start>
                             <img src="http://www.sarvaamexporters.com/{{ufrl.pro_path}}" alt="un">
                         </ion-avatar>
                         <h2>{{ufrl.uname}}</h2>
                         <p>{{ufrl.location}}</p>
-                        <!-- <ion-note item-end>
-               <span classs="time" >11.30 am</span>
-              </ion-note> -->
+                       
                     </ion-item>
                 </ion-item-sliding>
 
@@ -342,34 +312,7 @@
         <!-- User Friend list -->
         <!-- User Friend Request details -->
         <div [ngClass]="{'show': isProFfPenSett }" id="frpng" class="pro_sc frl show">
-            <!-- <ul>
-
-            <li class="frech " *ngFor="let ufrl of usfrlt">
-                <div class="lssec clr" *ngIf="ufrl.isconfirmed!='Yes'">
-                    <div class="frdp fl">
-                        <img src="http://www.sarvaamexporters.com/{{ufrl.pro_path}}" alt="un">
-                    </div>
-                    <div class="frinf fr">
-                        <p>{{ufrl.uname}}</p>
-                        <p>{{ufrl.location}}</p>
-                    </div>
-                    <div class="frbn">
-                        <mat-chip-list class="mat-chip-list-stacked clr">
-                            <mat-chip class="cmpg" (click)="isFriendRequestAccepted(ufrl.uid,'yes')" selected="true">
-                                Confirm
-                            </mat-chip>
-                        </mat-chip-list>
-                        <mat-chip-list class="mat-chip-list-stacked">
-                            <mat-chip class="cmpg" (click)="isFriendRequestAccepted(ufrl.uid,'no')" selected="true">
-                                Reject
-                            </mat-chip>
-                        </mat-chip-list>
-                    </div>
-
-                </div>
-
-            </li>
-        </ul> -->
+            
             <div *ngFor="let ufrl of usfrlt">
                 <ion-item-sliding *ngIf="ufrl.isconfirmed!='Yes'" class="frpedlst" #item>
                     <ion-item>

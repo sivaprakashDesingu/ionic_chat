@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from '../service/appService';
 import { ChatBoxPage } from '../chatbox/chatbox';
+import * as $ from 'jquery';
 //import { DashPage } from '../dash/dash';
 /**
  * Generated class for the DashPage page.
@@ -67,9 +68,12 @@ export class DashPage implements OnInit {
     document.getElementById(adc).classList.add('show');
     document.getElementById(rmc).classList.remove('show');
     if (st == "yes")
-      document.getElementById(whrm).removeAttribute("readonly");
+      $("#"+whrm).attr("data-overlay","off");
+      
+      //document.getElementById(whrm).removeAttribute("readonly");
     else
-      document.getElementById(whrm).setAttribute("readonly", "readonly");
+      $("#"+whrm).attr("data-overlay","on");
+      //document.getElementById(whrm).setAttribute("readonly", "readonly");
   }
 
   CancelUpdateDataOfUser(uAttr, adc, rmc, id, st) {
@@ -144,10 +148,7 @@ export class DashPage implements OnInit {
     this.isProFfPenSett = false;
   }
 
-  enalbeFrsSett() {
-    this.isProFfSett = true;
-    this.isProFfPenSett = false;
-    this.isProSett = false;
+  listFriendsAndRequest(){
     this.postData={'lgid':this.lgid};
     this.http.post(this.appService.API_ENDPOINT+'getUserFriends', this.postData)
     .subscribe(data => {
@@ -157,12 +158,41 @@ export class DashPage implements OnInit {
     err => console.log(err),
     () => console.log());
   }
+  enalbeFrsSett() {
+    this.isProFfSett = true;
+    this.isProFfPenSett = false;
+    this.isProSett = false;
+    this.listFriendsAndRequest();
+  }
   enalbeFrPenSett() {
     this.isProFfPenSett = true;
     this.isProFfSett = false;
     this.isProSett = false;
+    this.listFriendsAndRequest();
 
   }
+
+  isFriendRequestAccepted(id,action){
+   
+    this.postData = { 'uid': id,'action':action,"ulgid":this.lgid };
+    console.log(this.postData);
+    this.http.post(this.appService.API_ENDPOINT+'isFriendRequestAccepted', this.postData)
+      .subscribe(data => {
+        this.getFriendList();
+        //console.log(data);
+        if (data == 1 && action=="yes") {
+          this.appService.presentToast("Added in you friend list...",'bottom');
+         
+        }else{
+          this.appService.presentToast("Removed form the list...",'bottom');
+                
+        }
+        
+      },
+        err => console.log(err),
+        () => console.log());
+  }
+
 
 
   userProfileChange(event, whi) {

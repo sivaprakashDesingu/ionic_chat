@@ -151,7 +151,7 @@ page-dash {
         ion-icon{color:#636363;}
         .pro_sc{
             display:none;          
-            padding:15px;
+            padding:15px 15px 30px;
             &.show{display:block;}
             &.frl{padding:0;}
             mat-form-field{
@@ -176,7 +176,8 @@ page-dash {
             }
             } 
             
-        } 
+        }
+         
         .frpedlst{
             ion-avatar{padding-left:10px;
                 img{margin-top:-20px;}
@@ -202,7 +203,19 @@ page-dash {
     
 }
 
+.mkch ion-item[data-overlay="on"]:after{
+    display: block;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 30px;
+    width: 100%;
+    height: 40px;
+    background: $whitefc;
+    opacity:.4;
+}
 
+.mkch ion-item[data-overlay="off"]:after{display:none;}
 /* More dopdown menu */
 .mremnu{
     top: 0;
@@ -226,4 +239,9 @@ page-dash {
 }
 .mremnu.open{
     transform: scale(1,1) translateY(0px);
+}
+.list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child,
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
+    border-bottom: 1px solid #dedede;
+    box-shadow:none;
 }
