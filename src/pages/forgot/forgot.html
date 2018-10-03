@@ -11,23 +11,25 @@
     </div>
     <form validate #rgForm="ngForm" class="logfld rgst">
       <ion-item>
-        <ion-label floating>User id / Email id</ion-label>
-        <ion-input type="text" #chatid="ngModel" [(ngModel)]='uid' name="uid" required></ion-input>
+        <ion-label floating>Email id</ion-label>
+        <ion-input type="email" #chatid="ngModel" [(ngModel)]='uid'  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="uid" required></ion-input>
       </ion-item>
       <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
         <p class="ermsg mrdow" [hidden]="!chatid.errors.required">
-          Either user id or Email id Must!
+           Let us know your Email please
+        </p>
+        <p class="ermsg" [hidden]="!chatid.errors.pattern">
+             Incorrect format
         </p>
       </div>
 
 
 
       <a class="subbtn">
-        <button [ngClass]="{'disables': rgForm.form.invalid,'enabled' : rgForm.form.valid }" (click)="isUserRegisterSubmitted()"
-          ion-button color="primaryButtonColor">Submit</button>
+        <button [ngClass]="{'disables': frForm.form.invalid,'enabled' : frForm.form.valid }" (click)="forgotPswdOTP()" ion-button color="primaryButtonColor">Submit</button>
       </a>
-      <a (click)="goBack()">Create one</a>
-      <a (click)="goBack()">Got your password?</a>
+      <!-- <a (click)="goBack()">Create one</a> -->
+      <a href="javascript:void(0)" (click)="goBack()">Got your password?</a>
 
     </form>
     <!-- Registration Form ends here -->

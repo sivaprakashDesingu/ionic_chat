@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { AppService } from '../service/appService';
 /**
  * Generated class for the ForgotPage page.
  *
@@ -24,13 +26,13 @@ export class ForgotPage {
   private rsuid;
   private rpswd;
 
-  goBack(){
+  goBack() {
     this.navCtrl.pop();
   }
 
-  
+
   forgotPswdOTP() {
-    this.http.get('http://localhost/chat/forgotPswdOtp.php', {
+    this.http.get(this.appService.API_ENDPOINT + 'forgotPswdOtp.php', {
       params: {
         uid: this.uid
       }
@@ -45,30 +47,26 @@ export class ForgotPage {
 
 
   isvalidRstOTP() {
-    this.http.get('http://localhost/chat/checkValidOTP.php', {
+    this.http.get(this.appService.API_ENDPOINT + 'checkValidOTP.php', {
       params: {
         otp: this.rotp
       }
     })
       .subscribe(data => {
-        
         this.rsuid = data;
-
-        if (this.rsuid.length>0) {
+        if (this.rsuid.length > 0) {
           //this.fienb = true;
           document.getElementById("rst").classList.add("open");
-
         }
-
       },
       err => console.log(err),
       () => console.log(this.rsuid));
   }
 
   isResetDone() {
-    this.http.get('http://localhost/chat/isResetfinished.php', {
+    this.http.get(this.appService.API_ENDPOINT + 'isResetfinished.php', {
       params: {
-        uid:this.rsuid[0].uid,pswd: this.rpswd
+        uid: this.rsuid[0].uid, pswd: this.rpswd
       }
     })
       .subscribe(data => {
@@ -82,7 +80,7 @@ export class ForgotPage {
       () => console.log());
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private http: HttpClient) {
+  constructor(private appService: AppService, public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
   }
 
   ionViewDidLoad() {

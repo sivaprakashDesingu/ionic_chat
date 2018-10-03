@@ -8,11 +8,12 @@
   <ion-navbar>
     <div class="hd-mid">
       <div class="udwrp">
+        <ion-avatar class="round-image">
+            
+            <img class="round-image" width="50" height="50" src="{{receiverProPic}}" alt="Manoj">
+          </ion-avatar>
           <ion-title>{{rname}}</ion-title>
-      <ion-avatar class="round-image">
-        
-        <img class="round-image" width="50" height="50" src="{{receiverProPic}}" alt="Manoj">
-      </ion-avatar>
+          
       </div>
       
       <div class="mre">
@@ -34,8 +35,8 @@
       <div class="chtlst clr">
         <ul id="chul" class="chpr">
           <li class="clr" *ngFor="let chts of allChats">
-            <p *ngIf="chts.sender!=lgid" class="fd fr"> {{chts.message}} </p>
-            <p *ngIf="chts.sender==lgid" class="fu fl"> {{chts.message}} </p>
+            <p *ngIf="chts.sender!=lgid" class="fu fl"> {{chts.message}} </p>
+            <p *ngIf="chts.sender==lgid" class="fd fr"> {{chts.message}} </p>
           </li>
           
         </ul>
@@ -49,8 +50,7 @@
 
 <div class="msgbox">
     <ion-item>
-        <ion-label color="primary" floating>Type your message here.....</ion-label>
-        <ion-input #chatid="ngModel" [(ngModel)]='umsg' name="umsg" required></ion-input>
+        <ion-input #chatid="ngModel" placeholder="Type your message here....." [(ngModel)]='umsg' name="umsg" required></ion-input>
       </ion-item>
-      <button (click)="isMessageSent()" ion-button color="secondary"><ion-icon ios="ios-send" md="md-send"></ion-icon></button>
+      <button (click)="isMessageSent()" ion-button color="primaryButtonColor"><ion-icon ios="ios-send" md="md-send"></ion-icon></button>
 </div>

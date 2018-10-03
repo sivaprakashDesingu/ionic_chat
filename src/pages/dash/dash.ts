@@ -178,7 +178,7 @@ export class DashPage implements OnInit {
     console.log(this.postData);
     this.http.post(this.appService.API_ENDPOINT+'isFriendRequestAccepted', this.postData)
       .subscribe(data => {
-        this.getFriendList();
+        this.listFriendsAndRequest();
         //console.log(data);
         if (data == 1 && action=="yes") {
           this.appService.presentToast("Added in you friend list...",'bottom');
@@ -229,27 +229,12 @@ export class DashPage implements OnInit {
     this.navCtrl.push(ChatBoxPage,{
       rid:rid
     })
-    // this.http.get('http://localhost/chat/whichChatEnabled.php', {
-    //   params: {
-    //     luid: rid,
-
-    //   }
-    // })
-    //     .subscribe(data => {
-    //       this.userchats = data;
-    //     },
-    //     err => console.log(err),
-    //     () => console.log(this.userchats));
-
-
-
-   // this.router.navigate(['/dash/chat/', rid]);
   }
 
   isFoundFriend() {
     //console.log(this.srfr);
-    //this.http.get('http://localhost:3000/Searchyourfriend', {
-    this.http.get(this.appService.API_ENDPOINT+'SearchPeoples', {
+    this.http.get(this.appService.API_ENDPOINT+'Searchyourfriend', {
+    //this.http.get(this.appService.API_ENDPOINT+'SearchPeoples', {
       params: {
         srchkey: this.srfr
       }

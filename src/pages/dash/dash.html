@@ -99,9 +99,9 @@
 
     </form>
     <div class="srcht clr">
-        <ul class="filter">
+         <!-- <ul class="filter">
             <li class="sritme" *ngFor="let slst of srfrlst">
-                <!-- <h2>Find you friend here.</h2> -->
+               
                 <div class="srin clr">
                     <div class=" suicn">
                         <img src="http://www.sarvaamexporters.com/{{slst.pro_path}}" alt="un">
@@ -113,7 +113,7 @@
                     </div>
                     <div class="frbn">
                         <button ion-button full class="cmpg" (click)="isResetDone()">Sent Request</button>
-                        <!-- <mat-chip-list class="mat-chip-list-stacked clr">
+                        <mat-chip-list class="mat-chip-list-stacked clr">
                             <mat-chip class="cmpg" (click)="isResetDone()" selected="true">
                                 Sent Request
                             </mat-chip>
@@ -122,13 +122,35 @@
                     <mat-chip   (click)="isResetDone()" selected="true">
                       Cancel
                     </mat-chip>
-                  </mat-chip-list> -->
+                  </mat-chip-list>
                     </div>
                 </div>
 
             </li>
 
-        </ul>
+        </ul>  -->
+         <div class="sritme"  *ngFor="let slst of srfrlst">
+                <ion-item-sliding  class="frpedlst" #item>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <img src="http://www.sarvaamexporters.com/{{slst.pro_path}}" alt="un">
+                        </ion-avatar>
+                        <h2>{{slst.uname}}</h2>
+                         <p>{{slst.uid}}</p>
+                            <p>{{slst.email}}</p>
+                        <ion-note item-end>
+
+                        </ion-note>
+                        <div class="btnwrp">
+                            <button (click)="isFriendRequestAccepted(ufrl.uid,'yes')">Confirm</button>
+                            <button (click)="isFriendRequestAccepted(ufrl.uid,'no')">Reject</button>
+                        </div>
+
+                    </ion-item>
+
+                </ion-item-sliding>
+
+            </div>
     </div>
 </div>
 
@@ -182,9 +204,7 @@
         <!-- Profile setting update-->
         <div [ngClass]="{'show': isProSett }" id="prosec " class="pro_sc mkch">
             <form>
-                <!-- <mat-form-field>
-                  <input #ngui="ngModel" matInput placeholder="Unique id" [(ngModel)]='lgid' name="lgid" [readonly]="true">
-              </mat-form-field> -->
+              
                 <ion-list>
 
                     <ion-item data-overlay="on">
@@ -194,9 +214,7 @@
                 </ion-list>
 
                 <div class="stfld">
-                    <!-- <mat-form-field>
-                      <input id='flrm' #fn="ngModel" matInput placeholder="Full Name" [(ngModel)]='lguser' name="lguser" required readonly>
-                  </mat-form-field> -->
+                   
                     <ion-list>
 
                         <ion-item id='flrm' data-overlay="on">
@@ -216,9 +234,7 @@
 
                 </div>
                 <div class="stfld" >
-                    <!-- <mat-form-field>
-                      <input id="emrm" #emai="ngModel" matInput placeholder="Email id" [(ngModel)]='uemail' name="uemail" required readonly>
-                  </mat-form-field> -->
+                   
 
                     <ion-item id="emrm" data-overlay="on">
                         <ion-label floating>Email id</ion-label>

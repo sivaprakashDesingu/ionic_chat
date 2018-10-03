@@ -120,10 +120,11 @@ export class ChatBoxPage implements OnInit {
   }
   private handleMessageReceivedEvent(data): void {
     //console.log(data.by);
+    this.umsg="";
     if (data.by == this.lgid) {
-      $("#chul").append("<li class='clr'> <p _ngcontent-c1 class='fu fl'>" + data.msg + "</p></li>");
+      $("#chul").append("<li class='clr'> <p _ngcontent-c1 class='fd fr>" + data.msg + "</p></li>");
     } else {
-      $("#chul").append("<li class='clr'> <p _ngcontent-c1 class='fd fr'>" + data.msg + "</p></li>");
+      $("#chul").append("<li class='clr'> <p _ngcontent-c1 class='fu fl''>" + data.msg + "</p></li>");
     }
   }
 
