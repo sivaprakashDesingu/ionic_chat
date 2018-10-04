@@ -18,9 +18,7 @@
     </ion-navbar>
 </ion-header>
 
-
 <ion-content class="outer-content">
-
 
     <ion-list class="chat-sliding-demo">
         <!-- <ion-list-header>
@@ -43,7 +41,6 @@
                 </ion-item>
             </ion-item-sliding>
 
-
             <ion-item-sliding *ngIf="uls.receiver!=lgid" (click)="isChatEnabled(uls.receiver)" class="chtlist" #item>
 
                 <ion-item>
@@ -61,7 +58,6 @@
             </ion-item-sliding>
         </div>
 
-
     </ion-list>
 
     <!-- this fab is placed at bottom right -->
@@ -70,15 +66,18 @@
             <ion-icon name="add"></ion-icon>
         </button>
         <ion-fab-list side="top">
-            <button ion-fab>
+            <button (click)="enableSearchFun('chat')" ion-fab>
                 <ion-icon name="chatbubbles"></ion-icon>
             </button>
-            <button (click)='enableSearchFun()' ion-fab>
+            <button (click)="enableSearchFun('grp')"  ion-fab>
                 <ion-icon ios="ios-contacts" md="md-contacts"></ion-icon>
             </button>
-            
+            <button (click)="enableSearchFun('ppl')"  ion-fab>
+                 <ion-icon ios="ios-search" md="md-search"></ion-icon>
+            </button>
+
         </ion-fab-list>
-       
+
     </ion-fab>
 
 </ion-content>
@@ -87,73 +86,71 @@
     <span (click)='closeSearchFun()' class="clshlg">
         <ion-icon ios="ios-close" md="md-close"></ion-icon>
     </span>
-    <form class="cmpg frstch">
-       
-        <ion-list>
 
-            <ion-item>
-                <ion-label floating>User id / Email id / User name</ion-label>
-                <ion-input type="text" (keyup)="isFoundFriend()" #searchfr="ngModel" [(ngModel)]='srfr' name="srfr"></ion-input>
-            </ion-item>
-        </ion-list>
+    <div id="peppleSearch" class="peppleSearch">
+        <form class="cmpg frstch">
 
-    </form>
-    <div class="srcht clr">
-         <!-- <ul class="filter">
-            <li class="sritme" *ngFor="let slst of srfrlst">
-               
-                <div class="srin clr">
-                    <div class=" suicn">
-                        <img src="http://www.sarvaamexporters.com/{{slst.pro_path}}" alt="un">
-                    </div>
-                    <div class="fr sudet">
-                        <p>{{slst.email}}</p>
-                        <p>{{slst.uid}}</p>
-                        <p>{{slst.uname}}</p>
-                    </div>
-                    <div class="frbn">
-                        <button ion-button full class="cmpg" (click)="isResetDone()">Sent Request</button>
-                        <mat-chip-list class="mat-chip-list-stacked clr">
-                            <mat-chip class="cmpg" (click)="isResetDone()" selected="true">
-                                Sent Request
-                            </mat-chip>
-                        </mat-chip-list> -->
-                        <!-- <mat-chip-list class="mat-chip-list-stacked">
-                    <mat-chip   (click)="isResetDone()" selected="true">
-                      Cancel
-                    </mat-chip>
-                  </mat-chip-list>
-                    </div>
-                </div>
+            <ion-list>
 
-            </li>
+                <ion-item>
+                    <ion-label floating>User id / Email id / User name</ion-label>
+                    <ion-input type="text" (keyup)="isFoundFriend()" #searchfr="ngModel" [(ngModel)]='srfr' name="srfr"></ion-input>
+                </ion-item>
+            </ion-list>
 
-        </ul>  -->
-         <div class="sritme"  *ngFor="let slst of srfrlst">
-                <ion-item-sliding  class="frpedlst" #item>
+        </form>
+        <div class="srcht clr">
+            <div class="sritme" *ngFor="let slst of srfrlst; let i = index">
+
+                <ion-item-sliding class="frpedlst" #item>
                     <ion-item>
                         <ion-avatar item-start>
                             <img src="http://www.sarvaamexporters.com/{{slst.pro_path}}" alt="un">
                         </ion-avatar>
                         <h2>{{slst.uname}}</h2>
-                         <p>{{slst.uid}}</p>
-                            <p>{{slst.email}}</p>
+                        <!-- <p>{{slst.uid}}</p> -->
+                        <p>{{slst.email}}</p>
                         <ion-note item-end>
-
                         </ion-note>
                         <div class="btnwrp">
-                            <button (click)="isFriendRequestAccepted(ufrl.uid,'yes')">Confirm</button>
-                            <button (click)="isFriendRequestAccepted(ufrl.uid,'no')">Reject</button>
+                            <button ion-button (click)="isFriendRequestAccepted(ufrl.uid,'yes')">Confirm</button>
+                            <button ion-button (click)="isFriendRequestAccepted(ufrl.uid,'no')">Reject</button>
                         </div>
-
                     </ion-item>
-
                 </ion-item-sliding>
-
             </div>
+            <!-- here -->
+            <div class="noresult" *ngIf="!srfrlst || hasNoSelectedArtefacts()">
+                No items to display
+            </div>
+        </div>
     </div>
-</div>
+    <div id="chatsr" class="chatsr">
+        <div class="srcht clr">
+            <ion-list class="chat-sliding-demo ufrlist">
+                <ion-list-header>
+                    Make Conversation from here.
+                </ion-list-header>
+                <div class="sritme  " *ngFor="let ufrl of usfrlt">
 
+                    <ion-item-sliding *ngIf="ufrl.isconfirmed=='Yes'" (click)="isChatEnabled(ufrl.uid)" class="chtlist" #item>
+                        <ion-item>
+                            <ion-avatar item-start>
+                                <img src="http://www.sarvaamexporters.com/{{ufrl.pro_path}}" alt="un">
+                            </ion-avatar>
+                            <h2>{{ufrl.uname}}</h2>
+                            <p>{{ufrl.location}}</p>
+
+                        </ion-item>
+                    </ion-item-sliding>
+
+                </div>
+            </ion-list>
+        </div>
+
+    </div>
+
+</div>
 
 <!-- User profile update here-->
 <div [ngClass]="{'open': isUserProvileEnabled }" class="frreq usrpro">
@@ -166,13 +163,11 @@
             <div class="upr">
                 <div class="inupr">
                     <img src="{{upro_path}}" alt="userprofile" />
-                    <input #uproupload type="file" (click)="uproupload.value = null" (change)="userProfileChange($event,'profile')"
-                        style="display:none" accept="image/*">
+                    <input #uproupload type="file" (click)="uproupload.value = null" (change)="userProfileChange($event,'profile')" style="display:none" accept="image/*">
                     <a (click)="uproupload.click()" class="uppr" href="javascript:void(0);">
                         Edit
                         <i class="fas fa-pencil-alt"></i>
                     </a>
-
 
                 </div>
                 <h3>{{lguser}}</h3>
@@ -180,8 +175,7 @@
             </div>
             <div class="edico">
                 <!-- <input class="id="cin" name="cin" type="file" placeholder="Upload a file..." multiple/> -->
-                <input #ucvrupload type="file" (click)="ucvrupload.value = null" (change)="userProfileChange($event,'cover')"
-                    style="display:none" accept="image/*">
+                <input #ucvrupload type="file" (click)="ucvrupload.value = null" (change)="userProfileChange($event,'cover')" style="display:none" accept="image/*">
                 <a (click)="ucvrupload.click()" class="uppr" href="javascript:void(0);">
                     Edit
                     <i class="fas fa-pencil-alt"></i>
@@ -200,11 +194,10 @@
             </ion-segment-button>
         </ion-segment>
 
-
         <!-- Profile setting update-->
         <div [ngClass]="{'show': isProSett }" id="prosec " class="pro_sc mkch">
             <form>
-              
+
                 <ion-list>
 
                     <ion-item data-overlay="on">
@@ -214,12 +207,12 @@
                 </ion-list>
 
                 <div class="stfld">
-                   
+
                     <ion-list>
 
                         <ion-item id='flrm' data-overlay="on">
                             <ion-label floating>Full Name</ion-label>
-                            <ion-input type="text"  #fn="ngModel" [(ngModel)]='lguser' name="lguser" required></ion-input>
+                            <ion-input type="text" #fn="ngModel" [(ngModel)]='lguser' name="lguser" required></ion-input>
                         </ion-item>
                     </ion-list>
                     <span (click)="addrmclass('sda','eda','flrm','yes')" id="eda" class="upda show">
@@ -233,12 +226,11 @@
                     </span>
 
                 </div>
-                <div class="stfld" >
-                   
+                <div class="stfld">
 
                     <ion-item id="emrm" data-overlay="on">
                         <ion-label floating>Email id</ion-label>
-                        <ion-input  #emai="ngModel" [(ngModel)]='uemail' name="uemail" required></ion-input>
+                        <ion-input #emai="ngModel" [(ngModel)]='uemail' name="uemail" required></ion-input>
                     </ion-item>
                     <span (click)="addrmclass('sda1','eda1','emrm','yes')" id="eda1" class="upda show">
                         <ion-icon ios="ios-create" md="md-create"></ion-icon>
@@ -252,10 +244,10 @@
 
                 </div>
                 <div class="stfld">
-                    
+
                     <ion-item id="morm" data-overlay="on">
                         <ion-label floating>Mobile Nmber</ion-label>
-                        <ion-input  #mobn="ngModel" [(ngModel)]='phn' name="phn" required></ion-input>
+                        <ion-input #mobn="ngModel" [(ngModel)]='phn' name="phn" required></ion-input>
                     </ion-item>
                     <span (click)="addrmclass('sda2','eda2','morm','yes')" id="eda2" class="upda show">
                         <ion-icon ios="ios-create" md="md-create"></ion-icon>
@@ -268,10 +260,10 @@
 
                 </div>
                 <div class="stfld">
-                    
+
                     <ion-item id="adrm" data-overlay="on">
                         <ion-label floating>Status</ion-label>
-                        <ion-input  [(ngModel)]='status' name="status" ></ion-input>
+                        <ion-input [(ngModel)]='status' name="status"></ion-input>
                     </ion-item>
 
                     <span (click)="addrmclass('sda3','eda3','adrm','yes')" id="eda3" class="upda show">
@@ -285,10 +277,10 @@
 
                 </div>
                 <div class="stfld">
-                    
+
                     <ion-item id="lorm" data-overlay="on">
                         <ion-label floating>Location</ion-label>
-                        <ion-input  #ngloc="ngModel" [(ngModel)]='uloc' name="uloc" required ></ion-input>
+                        <ion-input #ngloc="ngModel" [(ngModel)]='uloc' name="uloc" required></ion-input>
                     </ion-item>
 
                     <span (click)="addrmclass('sda4','eda4','lorm','yes')" id="eda4" class="upda show">
@@ -303,14 +295,13 @@
 
                 </div>
 
-
             </form>
         </div>
         <!-- Profile setting update-->
         <!-- User Friend list setting update-->
 
         <div [ngClass]="{'show': isProFfSett }" id="frlst" class="pro_sc frl ">
-            
+
             <div *ngFor="let ufrl of usfrlt">
                 <ion-item-sliding *ngIf="ufrl.isconfirmed=='Yes'" (click)="isChatEnabled(ufrl.uid)" class="chtlist" #item>
                     <ion-item>
@@ -319,7 +310,7 @@
                         </ion-avatar>
                         <h2>{{ufrl.uname}}</h2>
                         <p>{{ufrl.location}}</p>
-                       
+
                     </ion-item>
                 </ion-item-sliding>
 
@@ -328,7 +319,7 @@
         <!-- User Friend list -->
         <!-- User Friend Request details -->
         <div [ngClass]="{'show': isProFfPenSett }" id="frpng" class="pro_sc frl show">
-            
+
             <div *ngFor="let ufrl of usfrlt">
                 <ion-item-sliding *ngIf="ufrl.isconfirmed!='Yes'" class="frpedlst" #item>
                     <ion-item>
@@ -341,6 +332,7 @@
 
                         </ion-note>
                         <div class="btnwrp">
+
                             <button (click)="isFriendRequestAccepted(ufrl.uid,'yes')">Confirm</button>
                             <button (click)="isFriendRequestAccepted(ufrl.uid,'no')">Reject</button>
                         </div>

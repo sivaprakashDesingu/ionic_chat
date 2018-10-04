@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
@@ -41,39 +41,48 @@ export class DashPage implements OnInit {
   private upro_path;
   private ucover_path;
 
-  isMoreOpen:boolean;
+  isMoreOpen: boolean;
 
 
 
   private postData = {};
-  constructor(public navParams: NavParams,public navCtrl: NavController,private appService:AppService,private cookie: CookieService, private http: HttpClient) {
+  constructor(public navParams: NavParams, public navCtrl: NavController, private appService: AppService, private cookie: CookieService, private http: HttpClient) {
     this.isProSett = true;
   }
- 
-  isMoreOpened(){
+
+  isMoreOpened() {
     this.isMoreOpen = true;
   }
-  isMoreClosed(){
+  isMoreClosed() {
     this.isMoreOpen = false;
   }
-  enableSearchFun() {
+  enableSearchFun(srac) {
+    console.log('open'+srac);
     this.isSearchVisible = true;
     document.getElementById("pghd").classList.add("hideHeader");
+    if (srac == "chat" || srac == "grp") {
+      this.listFriendsAndRequest();
+      $("#chatsr").attr("data-show","true");
+      $("#peppleSearch").attr("data-show","false");
+    } else if (srac == "ppl") {
+      $("#chatsr").attr("data-show","false");
+      $("#peppleSearch").attr("data-show","true");     
+    }
+
   }
   closeSearchFun() {
     this.isSearchVisible = false;
+    $("#chatsr").removeAttr("data-show");
+    $("#peppleSearch").removeAttr("data-show",);
     document.getElementById("pghd").classList.remove("hideHeader");
   }
   addrmclass(adc, rmc, whrm, st) {
     document.getElementById(adc).classList.add('show');
     document.getElementById(rmc).classList.remove('show');
     if (st == "yes")
-      $("#"+whrm).attr("data-overlay","off");
-      
-      //document.getElementById(whrm).removeAttribute("readonly");
+      $("#" + whrm).attr("data-overlay", "off");
     else
-      $("#"+whrm).attr("data-overlay","on");
-      //document.getElementById(whrm).setAttribute("readonly", "readonly");
+      $("#" + whrm).attr("data-overlay", "on");
   }
 
   CancelUpdateDataOfUser(uAttr, adc, rmc, id, st) {
@@ -94,7 +103,7 @@ export class DashPage implements OnInit {
     else if (uAttr == "location")
       this.postData = { 'attr': uAttr, 'uid': this.lgid, 'toBeUpdated': this.uloc }
 
-    this.http.post(this.appService.API_ENDPOINT+'updateDataOfUser', this.postData)
+    this.http.post(this.appService.API_ENDPOINT + 'updateDataOfUser', this.postData)
       .subscribe(data => {
         if (data == 1) {
           this.addrmclass(adc, rmc, id, st);
@@ -110,12 +119,12 @@ export class DashPage implements OnInit {
         }
 
       },
-        err => console.log(err),
-        () => console.log());
+      err => console.log(err),
+      () => console.log());
   }
   enableUProfile() {
     this.isUserProvileEnabled = true;
-    this.http.get(this.appService.API_ENDPOINT+'userProfileDetails', {
+    this.http.get(this.appService.API_ENDPOINT + 'userProfileDetails', {
       params: {
         uid: this.lgid,
 
@@ -132,8 +141,8 @@ export class DashPage implements OnInit {
         this.ucover_path = "http://www.sarvaamexporters.com/" + data[0].cover_path;
 
       },
-        err => console.log(err),
-        () => console.log());
+      err => console.log(err),
+      () => console.log());
 
 
   }
@@ -148,15 +157,15 @@ export class DashPage implements OnInit {
     this.isProFfPenSett = false;
   }
 
-  listFriendsAndRequest(){
-    this.postData={'lgid':this.lgid};
-    this.http.post(this.appService.API_ENDPOINT+'getUserFriends', this.postData)
-    .subscribe(data => {
-     this.usfrlt = data;
-     console.log(this.usfrlt);
-    },
-    err => console.log(err),
-    () => console.log());
+  listFriendsAndRequest() {
+    this.postData = { 'lgid': this.lgid };
+    this.http.post(this.appService.API_ENDPOINT + 'getUserFriends', this.postData)
+      .subscribe(data => {
+        this.usfrlt = data;
+        console.log(this.usfrlt);
+      },
+      err => console.log(err),
+      () => console.log());
   }
   enalbeFrsSett() {
     this.isProFfSett = true;
@@ -172,25 +181,25 @@ export class DashPage implements OnInit {
 
   }
 
-  isFriendRequestAccepted(id,action){
-   
-    this.postData = { 'uid': id,'action':action,"ulgid":this.lgid };
+  isFriendRequestAccepted(id, action) {
+
+    this.postData = { 'uid': id, 'action': action, "ulgid": this.lgid };
     console.log(this.postData);
-    this.http.post(this.appService.API_ENDPOINT+'isFriendRequestAccepted', this.postData)
+    this.http.post(this.appService.API_ENDPOINT + 'isFriendRequestAccepted', this.postData)
       .subscribe(data => {
         this.listFriendsAndRequest();
         //console.log(data);
-        if (data == 1 && action=="yes") {
-          this.appService.presentToast("Added in you friend list...",'bottom');
-         
-        }else{
-          this.appService.presentToast("Removed form the list...",'bottom');
-                
+        if (data == 1 && action == "yes") {
+          this.appService.presentToast("Added in you friend list...", 'bottom');
+
+        } else {
+          this.appService.presentToast("Removed form the list...", 'bottom');
+
         }
-        
+
       },
-        err => console.log(err),
-        () => console.log());
+      err => console.log(err),
+      () => console.log());
   }
 
 
@@ -198,22 +207,22 @@ export class DashPage implements OnInit {
   userProfileChange(event, whi) {
     const formData: any = new FormData();
     const files: Array<File> = event.target.files[0];
-    
+
     var imgtype = event.target.files[0].type;
     console.log(event.target.files[0]);
     imgtype = imgtype.split("/");
     if (whi == "profile") {
       formData.append("uploads[]", files, this.lgid + "_profile." + imgtype[1]);
-      
-      this.http.post(this.appService.API_ENDPOINT+'userProImageUpdate', formData)
-      .subscribe(files => {
-        //console.log('files', files);
-        this.enableUProfile();
-      })
+
+      this.http.post(this.appService.API_ENDPOINT + 'userProImageUpdate', formData)
+        .subscribe(files => {
+          //console.log('files', files);
+          this.enableUProfile();
+        })
     } else {
       formData.append("uploads[]", files, this.lgid + "_cover." + imgtype[1]);
-     
-      this.http.post(this.appService.API_ENDPOINT+'userProImageUpdate', formData)
+
+      this.http.post(this.appService.API_ENDPOINT + 'userProImageUpdate', formData)
         .subscribe(files => {
           //console.log('files', files);
           this.enableUProfile();
@@ -226,15 +235,14 @@ export class DashPage implements OnInit {
 
   isChatEnabled(rid) {
     console.log(rid);
-    this.navCtrl.push(ChatBoxPage,{
-      rid:rid
+    this.navCtrl.push(ChatBoxPage, {
+      rid: rid
     })
   }
 
   isFoundFriend() {
-    //console.log(this.srfr);
-    this.http.get(this.appService.API_ENDPOINT+'Searchyourfriend', {
-    //this.http.get(this.appService.API_ENDPOINT+'SearchPeoples', {
+    this.http.get(this.appService.API_ENDPOINT + 'Searchyourfriend', {
+      //this.http.get(this.appService.API_ENDPOINT+'SearchPeoples', {
       params: {
         srchkey: this.srfr
       }
@@ -242,12 +250,14 @@ export class DashPage implements OnInit {
       .subscribe(data => {
         this.srfrlst = data;
       },
-        err => console.log(err),
-        () => console.log(this.srfrlst));
+      err => console.log(err),
+      () => console.log(this.srfrlst));
   }
-
+  hasNoSelectedArtefacts() {
+    return this.srfrlst.length === 0;
+  }
   getUserChats() {
-    this.http.get(this.appService.API_ENDPOINT+'getMsgOfUser', {
+    this.http.get(this.appService.API_ENDPOINT + 'getMsgOfUser', {
       params: {
         uid: this.lgid,
       }
@@ -255,11 +265,11 @@ export class DashPage implements OnInit {
       .subscribe(data => {
         this.userchats = data;
       },
-        err => console.log(err),
-        () => console.log(this.userchats));
+      err => console.log(err),
+      () => console.log(this.userchats));
   }
-  getUserProfilePic(){
-    this.http.get(this.appService.API_ENDPOINT+'getUserProfilePic', {
+  getUserProfilePic() {
+    this.http.get(this.appService.API_ENDPOINT + 'getUserProfilePic', {
       params: {
         uid: this.lgid,
       }
@@ -267,8 +277,8 @@ export class DashPage implements OnInit {
       .subscribe(data => {
         this.lupic = "http://www.sarvaamexporters.com/" + data[0].pro_path;
       },
-        err => console.log(err),
-        () => console.log());
+      err => console.log(err),
+      () => console.log());
   }
   ngOnInit() {
     this.lgid = this.cookie.get('luser');
@@ -279,5 +289,5 @@ export class DashPage implements OnInit {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DashPage');
   }
- 
+
 }
