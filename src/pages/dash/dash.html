@@ -126,24 +126,26 @@
         </div>
     </div>
     <div id="chatsr" class="chatsr">
-        <div class="srcht clr">
+        <div  class="srcht clr">
             <ion-list class="chat-sliding-demo ufrlist">
-                <ion-list-header>
-                    Make Conversation from here.
+                
+                <ion-list-header *ngIf="grouOrPrivate=='chat'">
+                    Make Private Chat.
                 </ion-list-header>
-                <div class="sritme  " *ngFor="let ufrl of usfrlt">
+                <ion-list-header *ngIf="grouOrPrivate=='grp'">
+                    Make Group Chat.
+                </ion-list-header>
+                <div class="sritme" [ngClass]="{'prvChat': grouOrPrivate=='chat','grpChat' : grouOrPrivate=='grp' }" *ngFor="let ufrl of usfrlt;let i = index">
 
-                    <ion-item-sliding *ngIf="ufrl.isconfirmed=='Yes'" (click)="isChatEnabled(ufrl.uid)" class="chtlist" #item>
+                    <ion-item-sliding id="{{ 'chatPer' + i }}" *ngIf="ufrl.isconfirmed=='Yes'" (click)="grouOrPrivate=='chat' ? identifyPrivateGrop(ufrl.uid,grouOrPrivate) : selectGroupChatPerson('chatPer' + i,ufrl.uname,ufrl.uid)" class="chtlist" #item>
                         <ion-item>
                             <ion-avatar item-start>
                                 <img src="http://www.sarvaamexporters.com/{{ufrl.pro_path}}" alt="un">
                             </ion-avatar>
                             <h2>{{ufrl.uname}}</h2>
                             <p>{{ufrl.location}}</p>
-
                         </ion-item>
                     </ion-item-sliding>
-
                 </div>
             </ion-list>
         </div>

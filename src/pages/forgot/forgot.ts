@@ -25,21 +25,18 @@ export class ForgotPage {
   private rotp;
   private rsuid;
   private rpswd;
-
+  public postData={};
   goBack() {
     this.navCtrl.pop();
   }
 
 
   forgotPswdOTP() {
-    this.http.get(this.appService.API_ENDPOINT + 'forgotPswdOtp.php', {
-      params: {
-        uid: this.uid
-      }
-    })
+    this.postData = { 'uid': this.uid };
+    this.http.post(this.appService.API_ENDPOINT + 'forgotPswdOtp', this.postData)
       .subscribe(data => {
-        if (data == "True")
-          document.getElementById("otpv").classList.add("open")
+        //console.log(data);
+        document.getElementById("otpv").classList.add("open");
       },
       err => console.log(err),
       () => console.log());
@@ -47,7 +44,20 @@ export class ForgotPage {
 
 
   isvalidRstOTP() {
-    this.http.get(this.appService.API_ENDPOINT + 'checkValidOTP.php', {
+    this.postData = { 'email': this.uid,'otp': this.rotp};
+    this.http.post(this.appService.API_ENDPOINT + 'checkValidOTP', this.postData)
+      .subscribe(data => {
+        this.rsuid = data;
+        if (this.rsuid.length > 0) {
+            document.getElementById("rst").classList.add("open");
+        }else{
+          console.log("Invalid OTP...")
+        }
+        
+      },
+      err => console.log(err),
+      () => console.log());
+    /*this.http.get(this.appService.API_ENDPOINT + 'checkValidOTP', {
       params: {
         otp: this.rotp
       }
@@ -60,11 +70,11 @@ export class ForgotPage {
         }
       },
       err => console.log(err),
-      () => console.log(this.rsuid));
+      () => console.log(this.rsuid));*/
   }
 
   isResetDone() {
-    this.http.get(this.appService.API_ENDPOINT + 'isResetfinished.php', {
+    this.http.get(this.appService.API_ENDPOINT + 'isResetfinished', {
       params: {
         uid: this.rsuid[0].uid, pswd: this.rpswd
       }
@@ -74,7 +84,6 @@ export class ForgotPage {
         if (data == "True") {
           this.fienb = true;
         }
-
       },
       err => console.log(err),
       () => console.log());

@@ -1,6 +1,4 @@
 <ion-content>
-
-
   <div class="cmpg hmpg">
     <h1>Forgot Password? </h1>
     <!-- Registration Form Starts here -->
@@ -9,7 +7,7 @@
         <ion-icon ios="ios-close" md="md-close"></ion-icon>
       </a>
     </div>
-    <form validate #rgForm="ngForm" class="logfld rgst">
+    <form validate #frForm="ngForm" class="logfld rgst">
       <ion-item>
         <ion-label floating>Email id</ion-label>
         <ion-input type="email" #chatid="ngModel" [(ngModel)]='uid'  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="uid" required></ion-input>
@@ -77,7 +75,7 @@
       
         <h2>Reset your password</h2>
 
-        <form validate #rstpFom="ngForm" class="logfld rgst">
+        <form validate #rotpForm="ngForm" class="logfld rgst">
           
           <ion-item>
               <ion-label floating>New password</ion-label>

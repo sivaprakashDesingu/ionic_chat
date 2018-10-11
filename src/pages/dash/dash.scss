@@ -180,9 +180,11 @@ page-dash {
             }
         }
         ion-item-sliding{
+            transition:all ease 1s;
             .item-md.item-block .item-inner,.item-ios.item-block .item-inner{border:0;}
             ion-item{border-bottom:1px solid #ddd}
         }
+        
         
         .btnwrp{text-align:right;
             button{
@@ -198,7 +200,19 @@ page-dash {
    
     
 }
-
+.selected:before{
+    content: "\f2ba";
+    display: block;
+    position: absolute;
+    color: #000;
+    font-family: "Ionicons";
+    z-index: 9;
+    right: 20px;
+    top: 50%;
+    font-size: 40px;
+    transform: translateY(-50%);
+    color: #008000;
+}
 .mkch ion-item[data-overlay="on"]:after{
     display: block;
     content: "";

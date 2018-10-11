@@ -42,10 +42,11 @@ export class DashPage implements OnInit {
   private ucover_path;
 
   isMoreOpen: boolean;
-
+  private grouOrPrivate="private";
 
 
   private postData = {};
+  private gropChatSelected = {};
   constructor(public navParams: NavParams, public navCtrl: NavController, private appService: AppService, private cookie: CookieService, private http: HttpClient) {
     this.isProSett = true;
   }
@@ -57,10 +58,12 @@ export class DashPage implements OnInit {
     this.isMoreOpen = false;
   }
   enableSearchFun(srac) {
-    console.log('open'+srac);
+   
     this.isSearchVisible = true;
     document.getElementById("pghd").classList.add("hideHeader");
     if (srac == "chat" || srac == "grp") {
+      this.grouOrPrivate=srac;
+       console.log('open'+this.grouOrPrivate);
       this.listFriendsAndRequest();
       $("#chatsr").attr("data-show","true");
       $("#peppleSearch").attr("data-show","false");
@@ -180,7 +183,7 @@ export class DashPage implements OnInit {
     this.listFriendsAndRequest();
 
   }
-
+  
   isFriendRequestAccepted(id, action) {
 
     this.postData = { 'uid': id, 'action': action, "ulgid": this.lgid };
@@ -216,7 +219,6 @@ export class DashPage implements OnInit {
 
       this.http.post(this.appService.API_ENDPOINT + 'userProImageUpdate', formData)
         .subscribe(files => {
-          //console.log('files', files);
           this.enableUProfile();
         })
     } else {
@@ -224,15 +226,26 @@ export class DashPage implements OnInit {
 
       this.http.post(this.appService.API_ENDPOINT + 'userProImageUpdate', formData)
         .subscribe(files => {
-          //console.log('files', files);
           this.enableUProfile();
         })
     }
 
 
   }
+  selectGroupChatPerson(id,name,uid){
+    //this.gropChatSelected['id'].push(uid);
+    //this.gropChatSelected['name'].push(name);
+    document.getElementById(id).classList.toggle("selected");
+    console.log(this.gropChatSelected);
+  }
 
-
+  identifyPrivateGrop(rid,chatType){
+      if(chatType=='chat'){
+        this.isChatEnabled(rid);
+      }else{
+        console.log("groupchat funtionality");
+      }
+  }
   isChatEnabled(rid) {
     console.log(rid);
     this.navCtrl.push(ChatBoxPage, {
