@@ -46,7 +46,8 @@ export class DashPage implements OnInit {
 
 
   private postData = {};
-  private gropChatSelected = {};
+  private gropChatSelectedid = ['bub1'];
+  private gropChatSelectedper = [];
   constructor(public navParams: NavParams, public navCtrl: NavController, private appService: AppService, private cookie: CookieService, private http: HttpClient) {
     this.isProSett = true;
   }
@@ -63,7 +64,7 @@ export class DashPage implements OnInit {
     document.getElementById("pghd").classList.add("hideHeader");
     if (srac == "chat" || srac == "grp") {
       this.grouOrPrivate=srac;
-       console.log('open'+this.grouOrPrivate);
+      console.log('open'+this.grouOrPrivate);
       this.listFriendsAndRequest();
       $("#chatsr").attr("data-show","true");
       $("#peppleSearch").attr("data-show","false");
@@ -184,6 +185,25 @@ export class DashPage implements OnInit {
 
   }
   
+  isFriendRequestSent(id){
+    this.postData = { 'uid': id, "ulgid": this.lgid, "rson": this.appService.currentDate()};
+    this.http.post(this.appService.API_ENDPOINT + 'isFriendRequestSent', this.postData)
+      .subscribe(data => {
+        if (data == 1 ) {
+          this.appService.presentToast("Request has been sent", 'bottom',2000);
+
+        } else {
+          this.appService.presentToast("Request unable to send", 'bottom',2000);
+
+        }
+
+      },
+      err => console.log(err),
+      () => console.log());
+  }
+
+
+
   isFriendRequestAccepted(id, action) {
 
     this.postData = { 'uid': id, 'action': action, "ulgid": this.lgid };
@@ -193,10 +213,10 @@ export class DashPage implements OnInit {
         this.listFriendsAndRequest();
         //console.log(data);
         if (data == 1 && action == "yes") {
-          this.appService.presentToast("Added in you friend list...", 'bottom');
+          this.appService.presentToast("Added in you friend list...", 'bottom',2000);
 
         } else {
-          this.appService.presentToast("Removed form the list...", 'bottom');
+          this.appService.presentToast("Removed form the list...", 'bottom',2000);
 
         }
 
@@ -233,10 +253,20 @@ export class DashPage implements OnInit {
 
   }
   selectGroupChatPerson(id,name,uid){
-    //this.gropChatSelected['id'].push(uid);
-    //this.gropChatSelected['name'].push(name);
+    console.log(this.gropChatSelectedper.indexOf(uid));
+    /*if(this.gropChatSelectedper.indexOf(uid) == -1) {
+      this.gropChatSelectedid.push(uid);
+      this.gropChatSelectedper.push(name);
+    }*/
     document.getElementById(id).classList.toggle("selected");
-    console.log(this.gropChatSelected);
+    console.log(this.gropChatSelectedid+"....."+this.gropChatSelectedper);
+    console.log(this.usfrlt)
+
+    /*for(i=0;i<this.gropChatSelectedid.length;i++){
+      for(i=0;i<this.gropChatSelectedid.length;i++){
+        
+      }  
+    }*/
   }
 
   identifyPrivateGrop(rid,chatType){

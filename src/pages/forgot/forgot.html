@@ -24,7 +24,9 @@
 
 
       <a class="subbtn">
-        <button [ngClass]="{'disables': frForm.form.invalid,'enabled' : frForm.form.valid }" (click)="forgotPswdOTP()" ion-button color="primaryButtonColor">Submit</button>
+        <button [ngClass]="{'disables': frForm.form.invalid,'enabled' : frForm.form.valid }" (click)="forgotPswdOTP()" ion-button color="primaryButtonColor">
+        Submit
+        </button>
       </a>
       <!-- <a (click)="goBack()">Create one</a> -->
       <a href="javascript:void(0)" (click)="goBack()">Got your password?</a>
@@ -43,25 +45,24 @@
       
       <h2>Reset your password</h2>
     <p>Please check you mail for the One time password..</p>
+    
     <form validate #rotpForm="ngForm" class="logfld rgst">
    
       <ion-item>
-        <ion-label floating>User id / Email id</ion-label>
+        <ion-label floating>Enter OTP </ion-label>
         <ion-input type="text" #otp="ngModel" [(ngModel)]='rotp' name="rotp" required></ion-input>
       </ion-item>
+
       <div *ngIf="otp.errors && (otp.dirty || otp.touched)" class="alert alert-danger">
           <p class="ermsg mrdow" [hidden]="!otp.errors.required">
             OTP Must
           </p>
-        </div>
+      </div>
 
       <a class="subbtn">
-   
- 
           <button [ngClass]="{'disables': rotpForm.form.invalid,'enabled' : rotpForm.form.valid }" (click)="isvalidRstOTP()" ion-button color="primaryButtonColor">
             Submit
           </button>
-        
       </a>
 
     </form>

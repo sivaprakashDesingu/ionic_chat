@@ -113,8 +113,7 @@
                         <ion-note item-end>
                         </ion-note>
                         <div class="btnwrp">
-                            <button ion-button (click)="isFriendRequestAccepted(ufrl.uid,'yes')">Confirm</button>
-                            <button ion-button (click)="isFriendRequestAccepted(ufrl.uid,'no')">Reject</button>
+                            <button ion-button (click)="isFriendRequestSent(slst.uid)">Request</button>
                         </div>
                     </ion-item>
                 </ion-item-sliding>
@@ -135,7 +134,7 @@
                 <ion-list-header *ngIf="grouOrPrivate=='grp'">
                     Make Group Chat.
                 </ion-list-header>
-                <div class="sritme" [ngClass]="{'prvChat': grouOrPrivate=='chat','grpChat' : grouOrPrivate=='grp' }" *ngFor="let ufrl of usfrlt;let i = index">
+                <div class="sritme" [ngClass]="{'prvChat': grouOrPrivate=='chat','grpChat' : grouOrPrivate=='grp' }" *ngFor="let ufrl of usfrlt;let i = index;">
 
                     <ion-item-sliding id="{{ 'chatPer' + i }}" *ngIf="ufrl.isconfirmed=='Yes'" (click)="grouOrPrivate=='chat' ? identifyPrivateGrop(ufrl.uid,grouOrPrivate) : selectGroupChatPerson('chatPer' + i,ufrl.uname,ufrl.uid)" class="chtlist" #item>
                         <ion-item>

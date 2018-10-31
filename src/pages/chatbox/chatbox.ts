@@ -29,6 +29,7 @@ export class ChatBoxPage implements OnInit {
   socket: SocketIOClient.Socket;
   private postData = {};
   private seeUserDataArray;
+  private isMoreOpen=false;
 
   constructor(private appService:AppService,public navCtrl: NavController, public navParams: NavParams,private http: HttpClient, private cookie: CookieService) {
     this.socket = io.connect(this.appService.API_ENDPOINT);
@@ -90,14 +91,15 @@ export class ChatBoxPage implements OnInit {
   }
 
   openMoreOptions() {
-    document.getElementById("mrdplst").classList.toggle("expand");
+    this.isMoreOpen = true;
   }
+
   openUserPro(a) {
     document.getElementById("othupro").classList.toggle("show");
-    document.getElementById("mrdplst").classList.toggle("expand");
+    this.isMoreOpen= false;
+    //document.getElementById("mrdplst").classList.toggle("expand");
     if(a=="open"){
-      document.getElementById("msbox").classList.toggle("ftrtext");
-      
+      document.getElementById("pghd").classList.toggle("hideHeader");  
       this.postData = {'whu':this.rcid};
       this.http.post(this.appService.API_ENDPOINT+'userProfileDetails', this.postData)
       .subscribe(data => {
@@ -107,14 +109,12 @@ export class ChatBoxPage implements OnInit {
       err => console.log(err),
       () => console.log());
     }else if(a=="close"){
-      document.getElementById("mrdplst").classList.toggle("expand");
-      document.getElementById("msbox").classList.toggle("ftrtext");
+     //document.getElementById("mrdplst").classList.toggle("expand");
+     document.getElementById("pghd").classList.toggle("hideHeader");
     }
 
   }
-  // rotateCard() {
-  //   document.getElementById("rtcrd").classList.toggle("rotate");
-  // }
+
   getCooky(){
     return this.cookie.get('luser');
   }

@@ -7,6 +7,7 @@ page-chat-box {
     ion-title{max-width:calc(100% - 50px)}
     ion-title,ion-avatar,.mre,.udwrp{display:inline-block;vertical-align:middle;}
     ion-avatar,.mre{width:50px;}
+    ion-header.hideHeader{z-index:-1}
     .mre{
         font-size: 25px; 
         padding-left: 19px;
@@ -96,6 +97,105 @@ page-chat-box {
         box-shadow:none;
         ion-icon{
             font-size:30px;
+        }
+    }
+}
+
+.mremnu{
+    top: 0;
+    background: #fff;height:auto;z-index: 91;
+    position: absolute;
+    right: 0;
+    transition: all 0.3s ease;
+    transform: scale(0) translateY(-100px);
+    transform-origin: 1 0;
+    min-width: 150px;
+        ul{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);  
+        a{
+            display:block;padding:15px 15px 12px;border-bottom: 1px solid #ddd;
+            text-decoration:none;
+        }
+    }
+}
+.mremnu.open{
+    transform: scale(1,1) translateY(0px);
+}
+
+.vwourpr{
+    position:fixed;left:-100%;top:0;width:100%;
+    min-height:100vh;background:#fff;transition:.5s left ease;
+    &.show{
+        left:0;
+        z-index:1;
+    }
+    .card-container{
+        width: 100%;height:100%;
+        border-radius: 4px; perspective: 800px;
+        
+        .card{
+            &.rotate{
+                .content{
+                    .frpg{left:-100%!important;}
+                    .bkpg{left:0!important;}
+                }
+            }
+            background: none repeat scroll 0 0 #f1f1f1;
+            border-radius: 4px;
+            color: #636363;
+            position: relative;
+            transition:all ease .5s;
+            .front{
+                border-radius: 4px;
+                z-index:2;  
+                height:100vh;
+                .cover{
+
+                    height: 200px;
+                    border-radius: 4px 4px 0 0;
+                    background-size: cover;
+                    position: relative;
+                    .hdr{position: absolute;
+                        width:35px;
+                        height:50px;
+                        left:5px;
+                        top:5px;}
+                    .img{
+                        background-size: cover;
+                        position: absolute;
+                        bottom: -60px;
+                        width: 120px;
+                        height: 120px;
+                        display: block;
+                        border-radius: 50%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background-size: cover;
+                    }
+                }
+                
+                .content{
+                    margin-top:55px;
+                    overflow: scroll;
+                    height: calc(100% - 293px);
+                    .frpg,.bkpg{
+                        width:100%;
+                        padding:20px;
+                        transition:ease all .5s;
+                    }
+                    .frpg{
+                        text-align:center;
+                        .name{margin-bottom:10px;font-size:20px;}
+                        .lving{color:#afaeae;margin-bottom:5px;}
+                        .abtust{line-height:27px;}
+                        
+                    }
+                   
+                }
+            }   
         }
     }
 }

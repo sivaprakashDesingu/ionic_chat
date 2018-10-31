@@ -54,3 +54,53 @@
       </ion-item>
       <button (click)="isMessageSent()" ion-button color="primaryButtonColor"><ion-icon ios="ios-send" md="md-send"></ion-icon></button>
 </div>
+
+
+
+<div id="othupro" class="vwourpr">
+        <div class="usrd">
+          <div class="card-container">
+            <div id="rtcrd" class="card">
+
+
+
+              <div class="front" *ngFor="let uda of seeUserDataArray">
+                
+                <div class="cover" [ngStyle]="{'background-image': 'url(http://www.sarvaamexporters.com/' + uda.cover_path + ')'}">
+                  <span (click)="openUserPro('close')" class="hdr">
+                      <img src="assets/images/icons/back.svg" alt="Back">
+      
+                  </span> 
+                  
+                  <span class="img" [ngStyle]="{'background-image': 'url(http://www.sarvaamexporters.com/' + uda.pro_path + ')'}">
+                    </span>
+                  </div>
+
+                <div class="content ">
+                  <div class="frpg">
+                    <div class="main">
+                      <h3 class="name">{{uda.uname}}</h3>
+                      <p class="lving">{{uda.location}}</p>
+                      <p class="abtust">{{uda.status}}</p>
+                    </div>
+                  </div>
+                  </div>
+              </div>
+            </div>
+            <!-- end card -->
+          </div>
+
+        </div>
+
+      </div>
+
+<div [ngClass]="{'open': isMoreOpen }" id="mrdplst" class="mremnu">
+    <ul>
+        <li>
+            <a (click)="openUserPro('open')">View Profile</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Block</a>
+        </li>
+    </ul>
+</div>

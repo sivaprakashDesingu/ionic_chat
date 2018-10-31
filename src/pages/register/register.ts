@@ -34,6 +34,11 @@ export class RegisterPage {
 
 
   constructor(private appService: AppService,private http: HttpClient,public navCtrl: NavController, public navParams: NavParams) {
+  
+    console.log(this.navParams.get("pageEnable"));
+    if((this.navParams.get("pageEnable"))=="vac"){
+      //document.getElementById("otpopen").classList.add("open");
+    }
   }
 
   isUserRegisterSubmitted() {
@@ -48,7 +53,6 @@ export class RegisterPage {
         } else if (data == 'ER_DUP_ENTRY') {
           console.log("else" + data);
         }
-
       },
         err => console.log(err),
         () => console.log());
@@ -61,9 +65,7 @@ export class RegisterPage {
         console.log(data);
         if (data == 1) {
           this.resnt = true;
-          
         }
-
         else {
           this.resnt = false;
         }
@@ -72,8 +74,6 @@ export class RegisterPage {
         () => console.log());
 
   }
-
-
   isOTPVerified() {
     this.Indata = { 'rotp': this.rotp };
     this.http.post(this.appService.API_ENDPOINT +'isOTPVerified', this.Indata)
@@ -99,6 +99,9 @@ export class RegisterPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
+     if((this.navParams.get("pageEnable"))=="vac"){
+      document.getElementById("otpopen").classList.add("open");
+    }
   }
 
 }
