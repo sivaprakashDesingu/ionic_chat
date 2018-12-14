@@ -1,0 +1,117 @@
+<ion-content>
+  
+ 
+    <div class="cmpg hmpg">
+                <h1>Register </h1>
+      <!-- Registration Form Starts here -->
+      <div class="oback">
+     <a (click)="goBack()" href="javascript:void(0);">
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      </a>
+  </div>
+        <form validate #rgForm="ngForm" class="logfld rgst">
+            <ion-item>
+                <ion-label floating>User id</ion-label>
+                <ion-input type="text" #chatid="ngModel"  [(ngModel)]='uid' name="uid" required></ion-input>
+            </ion-item>
+            <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
+                <p class="ermsg" [hidden]="!chatid.errors.required">
+                    Let's know your user id please
+                </p>
+            </div>
+            <ion-item>
+                <ion-label floating>Your Full name</ion-label>
+                <ion-input type="text" #funm="ngModel"  [(ngModel)]='fullna' name="fullna" required></ion-input>
+            </ion-item>
+            <div *ngIf="funm.errors && (funm.dirty || funm.touched)" class="alert alert-danger">
+                <p class="ermsg" [hidden]="!funm.errors.required">
+                    Let's know your Full Name please
+                </p>
+            </div>
+            <ion-item>
+                <ion-label floating>Email id</ion-label>
+                <ion-input  type="email" #emid="ngModel" [(ngModel)]='ueid' pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="ueid" required></ion-input> 
+            </ion-item>
+            <div *ngIf="emid.errors && (emid.dirty || emid.touched)" class="alert alert-danger">
+                <p class="ermsg" [hidden]="!emid.errors.required">
+                    Let's know your Email please
+                </p>
+                 <p class="ermsg" [hidden]="!emid.errors.pattern">
+                    Incorrect format
+                </p> 
+            </div>
+            <ion-item>
+                <ion-label floating>Password</ion-label>
+                <ion-input #rpsd="ngModel" [type]="'password'" minlength="6"  maxlength="16"  [(ngModel)]='upswd' name="upswd" required></ion-input>
+            </ion-item>
+            <div *ngIf="rpsd.errors && (rpsd.dirty || rpsd.touched)" class="alert alert-danger">
+                <p class="ermsg mrdow" [hidden]="!rpsd.errors.required">
+                    Passowrd Must!
+                </p>
+                <p class="ermsg mrdow" [hidden]="!rpsd.errors.minlength">
+                    Password should be 6 characters.
+                </p>
+            </div>
+            <a   class="subbtn" >
+              <button [ngClass]="{'disables': rgForm.form.invalid,'enabled' : rgForm.form.valid }" (click)="isUserRegisterSubmitted()" ion-button color="primaryButtonColor">Submit</button>
+            </a>
+            <a (click)="goBack()">Already have account?</a>
+        </form>
+        <!-- Registration Form ends here -->
+
+
+        <!-- Registration  otp confirmation starts here -->
+        <div id="otpopen" class="otpsec cmpg">
+            <div class="oback">
+     <a (click)="goBack()" href="javascript:void(0);">
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      </a>
+  </div>
+            <h2>Account Verification</h2>
+            <p>Please check your registered email to the OTP</p>
+            <form validate #otpForm="ngForm" class="logfld rgst">
+                <ion-item>
+                    <ion-label floating>Enter OTP Here...</ion-label>
+                    <ion-input #otp="ngModel" [(ngModel)]='rotp' name="rotp" required></ion-input>
+                </ion-item>
+                <div *ngIf="otp.errors && (otp.dirty || otp.touched)" class="alert alert-danger">
+                    <p class="ermsg mrdow" [hidden]="!otp.errors.required">
+                        Passowrd Must!
+                    </p>
+                </div>
+                <a   class="subbtn" >
+                    <button  [ngClass]="{'disables': otpForm.form.invalid,'enabled' : otpForm.form.valid }" (click)="isOTPVerified()" ion-button color="primaryButtonColor">Submit</button>
+                
+                </a>
+                <!-- <a routerLink="/">we have alreaday res</a> -->
+            </form>
+            <div class="hr"></div>
+            <div class="rsotp">
+                <form validate #otpagForm="ngForm" class="logfld rgst">
+                    <p>If your not received OTP.<span>Please Enter your registered Email id</span></p>
+                    <ion-item>
+                        <ion-label floating>Enter OTP Here...</ion-label>
+                        <ion-input #mid="ngModel"  [(ngModel)]='rmid' name="rmid" required></ion-input>
+                    </ion-item>
+                    <div *ngIf="mid.errors && (mid.dirty || mid.touched)" class="alert alert-danger">
+                        <p class="ermsg mrdow" [hidden]="!mid.errors.required">
+                            Either user id or  Emamil id Must!
+                        </p>
+                    </div>
+                    <a   class="subbtn" >
+                         <button  [ngClass]="{'disables': otpagForm.form.invalid,'enabled' : otpagForm.form.valid }" (click)="reGenerateOTP()"  ion-button color="primaryButtonColor">Generate OTP</button>
+                    
+                    </a>
+                    <p *ngIf="resnt">Check your Email, We have re-sent the OTP.</p>
+                </form>
+            </div>
+        </div>
+        <!-- Registration  otp confirmation ends here -->
+         <!-- Registration  otp confirmation Message starts here --> 
+        <div id="otpst" class="otpsec cmpg">
+            <p>Your Email Verification Done.</p>
+            <a href="/">Go back to Login</a>
+        </div>
+        <!-- Registration  otp confirmation Message starts here -->  
+    </div>
+</ion-content>

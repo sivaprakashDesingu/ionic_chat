@@ -1,0 +1,131 @@
+<!--
+  Generated template for the ChatBoxPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header id="pghd">
+  <ion-navbar>
+    <div class="hd-mid">
+      <div class="udwrp">
+        <ion-avatar class="round-image">
+            
+            <img class="round-image" width="50" height="50" src="{{receiverProPic}}" alt="Manoj">
+          </ion-avatar>
+          <ion-title>{{rname}}</ion-title>
+          
+      </div>
+      
+      <div class="mre">
+        <a (click)="openMoreOptions()" id="mordpt"  href="javascript:void(0);"><ion-icon ios="ios-more" md="md-more"></ion-icon></a>
+      </div>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+<div class="chrwrp">
+    <div class="chts">
+      <div class="timestamp">
+        <p>Today</p>
+      </div>
+
+
+      <div class="chtlst clr">
+        <ul id="chul" class="chpr">
+          <li class="clr" *ngFor="let chts of allChats">
+            <p *ngIf="chts.sender!=lgid" class="fu fl"> {{chts.message}} </p>
+            <p *ngIf="chts.sender==lgid" class="fd fr"> {{chts.message}} </p>
+          </li>
+          
+        </ul>
+
+
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+
+<div class="msgbox">
+    <ion-item>
+        <ion-input (input)="whichTextMessage()"  #chatid="ngModel" placeholder="Type your message here....." [(ngModel)]='umsg' name="umsg" required></ion-input>
+      </ion-item>
+     
+      <button id="chatbtn" class="voiceText" ion-button color="primaryButtonColor">
+        
+       <ion-icon  (click)="isMessageSent(text)"  ios="ios-send" md="md-send"></ion-icon>
+       <ion-icon (click)="isMessageSent('voice')"  ios="ios-mic" md="md-mic"></ion-icon>
+      </button>
+</div>
+
+
+
+<div id="othupro" class="vwourpr">
+        <div class="usrd">
+          <div class="card-container">
+            <div id="rtcrd" class="card">
+
+
+
+              <div class="front" *ngFor="let uda of seeUserDataArray">
+                
+                <div class="cover" [ngStyle]="{'background-image': 'url(http://www.sarvaamexporters.com/' + uda.cover_path + ')'}">
+                  <span (click)="openUserPro('close')" class="hdr">
+                      <img src="assets/images/icons/back.svg" alt="Back">
+      
+                  </span> 
+                  
+                  <span class="img" [ngStyle]="{'background-image': 'url(http://www.sarvaamexporters.com/' + uda.pro_path + ')'}">
+                    </span>
+                  </div>
+
+                <div class="content ">
+                  <div class="frpg">
+                    <div class="main">
+                      <h3 class="name">{{uda.uname}}</h3>
+                      <p class="lving">{{uda.location}}</p>
+                      <p class="abtust">{{uda.status}}</p>
+                    </div>
+                  </div>
+                  </div>
+              </div>
+            </div>
+            <!-- end card -->
+          </div>
+
+        </div>
+
+      </div>
+ <div [ngClass]="{'enabled': isVoiceSectionEnable }" class="voicRes">
+    <div class="reworp">
+      <ion-icon (click)="closeVoiceMessage()" ios="ios-close" md="md-close"></ion-icon>
+      <div class="cpt">
+        <!-- <h2>We have found similar match with your voice.</h2> -->
+         <p>Please choose which you want to send to your Frined.</p>
+      </div>
+      
+      <ul *ngFor="let match of matches">
+        <!-- <li (click)="triggerVoiceMessage('How are you siva?')"> How are you siva? </li>
+        <li (click)="triggerVoiceMessage('How are you siva?')"> How are you siva? </li>
+        <li (click)="triggerVoiceMessage('How are you siva?')"> How are you siva? </li>
+        <li (click)="triggerVoiceMessage('How are you siva?')"> How are you siva? </li>
+        <li (click)="triggerVoiceMessage('How are you siva?')"> How are you siva? </li>
+       -->
+      <li (click)="triggerVoiceMessage(match)">
+        {{match}}
+      </li>
+        </ul>
+    </div>
+</div> 
+<div [ngClass]="{'open': isMoreOpen }" id="mrdplst" class="mremnu">
+    <ul>
+        <li>
+            <a (click)="openUserPro('open')">View Profile</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Block</a>
+        </li>
+    </ul>
+</div>
