@@ -109,7 +109,7 @@ export class ChatBoxPage implements OnInit {
             console.log(input);
             console.log(this.umsg);
             this.socket.emit('sendMessage', { "msg": this.umsg, "to": this.uniChatId, "by": this.lgid, 'rec': this.rcid, 'time': this.formatAMPM() });
-             //console.log(this.umsg + "..." + this.rcid);
+
         }
     }
 
@@ -178,11 +178,21 @@ export class ChatBoxPage implements OnInit {
     private handleMessageReceivedEvent(data): void {
         //console.log(data.by);
         this.umsg = "";
+        console.log("sender"+data.by);
+
         if (data.by == this.lgid) {
-            $("#chul").append("<li class='clr'> <p _ngcontent-c1 class='fd fr>" + data.msg + "</p></li>");
+            //$("#chul").append("<p>fsdfsfsd</p>");
+            this.allChats.push(
+                {'chatid':2,'croom':2,'message':data.msg,'pro_path':'','receiver':'bub1','s_sent_on':'','sno':'','sender':data.by},
+            );
+           // $("#chul").append("<li class='clr'> <p _ngcontent-c1 class='fd fr>" + data.msg + "</p></li>");
         } else {
-            $("#chul").append("<li class='clr'> <p _ngcontent-c1 class='fu fl''>" + data.msg + "</p></li>");
+            this.allChats.push(
+                {'chatid':2,'croom':2,'message':data.msg,'pro_path':'','receiver':'bub1','s_sent_on':'','sno':'','sender':data.by},
+            );
+            //$("#chul").append("<li class='clr'> <p _ngcontent-c1 class='fu fl''>" + data.msg + "</p></li>");
         }
+        console.log(this.allChats);
     }
 
     joinRoom() {
@@ -197,9 +207,9 @@ export class ChatBoxPage implements OnInit {
                             "sid": data[i].chatid
                         });
                     }
-                },
-                err => console.log(err),
-                () => console.log());
+            },
+            err => console.log(err),
+            () => console.log());
     }
 
 
