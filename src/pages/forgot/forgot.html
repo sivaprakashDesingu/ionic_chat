@@ -1,0 +1,123 @@
+<ion-content>
+  <div class="cmpg hmpg">
+    <h1>Forgot Password? </h1>
+    <!-- Registration Form Starts here -->
+    <div class="oback">
+      <a (click)="goBack()" href="javascript:void(0);">
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      </a>
+    </div>
+    <form validate #frForm="ngForm" class="logfld rgst">
+      <ion-item>
+        <ion-label floating>Email id</ion-label>
+        <ion-input type="email" #chatid="ngModel" [(ngModel)]='uid'  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="uid" required></ion-input>
+      </ion-item>
+      <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
+        <p class="ermsg mrdow" [hidden]="!chatid.errors.required">
+           Let us know your Email please
+        </p>
+        <p class="ermsg" [hidden]="!chatid.errors.pattern">
+             Incorrect format
+        </p>
+      </div>
+
+
+
+      <a class="subbtn">
+        <button [ngClass]="{'disables': frForm.form.invalid,'enabled' : frForm.form.valid }" (click)="forgotPswdOTP()" ion-button color="primaryButtonColor">
+        Submit
+        </button>
+      </a>
+      <!-- <a (click)="goBack()">Create one</a> -->
+      <a href="javascript:void(0)" (click)="goBack()">Got your password?</a>
+
+    </form>
+    <!-- Registration Form ends here -->
+
+
+    <!-- Registration  otp confirmation starts here -->
+    <div id="otpv" class="otpsec cmpg">
+      <div class="oback">
+        <a (click)="goBack()" href="javascript:void(0);">
+          <ion-icon ios="ios-close" md="md-close"></ion-icon>
+        </a>
+      </div>
+      
+      <h2>Reset your password</h2>
+    <p>Please check you mail for the One time password..</p>
+    
+    <form validate #rotpForm="ngForm" class="logfld rgst">
+   
+      <ion-item>
+        <ion-label floating>Enter OTP </ion-label>
+        <ion-input type="text" #otp="ngModel" [(ngModel)]='rotp' name="rotp" required></ion-input>
+      </ion-item>
+
+      <div *ngIf="otp.errors && (otp.dirty || otp.touched)" class="alert alert-danger">
+          <p class="ermsg mrdow" [hidden]="!otp.errors.required">
+            OTP Must
+          </p>
+      </div>
+
+      <a class="subbtn">
+          <button [ngClass]="{'disables': rotpForm.form.invalid,'enabled' : rotpForm.form.valid }" (click)="isvalidRstOTP()" ion-button color="primaryButtonColor">
+            Submit
+          </button>
+      </a>
+
+    </form>
+
+
+
+    </div>
+    <!-- Forgot  otp confirmation ends here -->
+    <!-- Registration  otp confirmation Message starts here -->
+    <div id="rst" class="otpsec cmpg">
+      
+        <h2>Reset your password</h2>
+
+        <form validate #rotpForm="ngForm" class="logfld rgst">
+          
+          <ion-item>
+              <ion-label floating>New password</ion-label>
+              <ion-input type="text" #rspswd="ngModel" [type]="'password'" minlength="6"  maxlength="16" [(ngModel)]='rpswd' name="rpswd" required></ion-input>
+            </ion-item>
+
+          <div *ngIf="rspswd.errors && (rspswd.dirty || rspswd.touched)" class="alert alert-danger">
+              <p class="ermsg mrdow" [hidden]="!rspswd.errors.required">
+                Password Must
+              </p>
+              <p class="ermsg mrdow" [hidden]="!rspswd.errors.minlength">
+                  Password should be 6 characters.
+                </p>
+               
+            </div>
+    
+          <ion-item>
+              <ion-label floating>Confirm password</ion-label>
+              <ion-input type="text" #cpswd="ngModel" [type]="'password'" minlength="6"  maxlength="16" [(ngModel)]='crpswd' name="crpswd" required></ion-input>
+            </ion-item>
+          <div *ngIf="cpswd.errors && (cpswd.dirty || cpswd.touched)" class="alert alert-danger">
+              <p class="ermsg mrdow" [hidden]="!cpswd.errors.required">
+                  Password Must
+              </p>
+            </div>
+          <a class="subbtn">
+              <button [ngClass]="{'disables': rotpForm.form.invalid,'enabled' : rotpForm.form.valid }" (click)="isvalidRstOTP()" ion-button color="primaryButtonColor">
+                  Submit
+                </button>
+            
+    
+          </a>
+        </form>
+    
+        <p class="rstmsg" *ngIf="fienb">Password Reseted successfully
+          <a href="/">Login</a>
+        </p>
+    
+
+
+    </div>
+    <!-- Registration  otp confirmation Message starts here -->
+  </div>
+</ion-content>

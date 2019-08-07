@@ -1,0 +1,74 @@
+@import "../../theme/variables.scss";
+page-register {
+    .disables{pointer-events:none;background:rgba(255, 255, 255, 0.25)!important;}
+    .enabled{pointer-events:auto;}
+    h1{padding-top:30px;color:$whitefc;text-align:center;}
+    .oback{
+        position:absolute;
+        top:20px;
+        right:20px;
+        ion-icon{
+            font-size:25px;color:$whitefc;
+        }
+    }
+    ion-content{
+        background-image: linear-gradient(130deg, #0b3954 13%, #3587a4 70%);
+    }
+    .item-md,
+    .item-ios{background:transparent;padding:0;}
+
+    .label-md[floating],
+    .label-ios[floating],
+    .item-input-has-focus .label-md[floating],
+    .item-input-has-focus .label-ios[floating],{color:$whitefc;font-weight:300;}
+
+    .ermsg{margin-bottom:0;color:$formErrorMessageColor;text-align:left;}
+    
+    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
+        border-color:$formErrorMessageColor;
+        box-shadow:inset 0 -1px 0 0 $formErrorMessageColor;
+    }
+    .item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-has-focus .item-inner{
+        border-color:$whitefc;
+        box-shadow:inset 0 -1px 0 0 $whitefc;
+    }
+        .logsec{
+            padding:50px 0 30px;
+            img{width:150px;height:150px;display:block;margin:0 auto;}
+        }
+        .logfld{
+            text-align:center;width:85%;margin:0 auto;position:relative;top:0;
+            a{
+                 &:first-of-type{
+                    margin-top:30px;
+                 }
+                 display:block;
+                 color:$whitefc;
+                 line-height:30px;
+            }
+            .button-md-primaryButtonColor,
+            .button-ios-primaryButtonColor{
+                width:100%;height:4rem;border-radius:25px;;
+            }
+            ion-input{color:#fff;font-weight:300;}
+            .subbtn{margin:30px 0 20px!important;}
+            .disables{pointer-events:none;background:rgba(255, 255, 255, 0.25);}
+            .enabled{pointer-events:auto;}
+        }
+        .otpsec{
+            background-image: linear-gradient(130deg, #0b3954 13%, #3587a4 70%);
+            *{
+                color:$whitefc;
+            }
+            .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary{color:#000;}
+            .ermsg{color:$ermsg;}
+            .mrdow{margin-bottom:20px; }
+            p{margin:10px 0 0; }
+            position:fixed;top:0;width:100%;transform: translateY(100vh);transition: transform 0.5s;text-align:center;padding:30px 15px;
+            .logfld{top:10px;}
+            
+            
+        }
+        .otpsec.open{transform: translateY(0%);min-height:100vh}
+        .hr{border:1px dotted $whitefc;margin:50px auto 25px;width:25%;}
+}
